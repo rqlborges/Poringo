@@ -80,8 +80,8 @@
 			children = (
 				6095E2FB1F645D1300E18CDC /* AppDelegate.swift */,
 				6095E3031F645D1300E18CDC /* GameViewController.swift */,
-				6095E2FD1F645D1300E18CDC /* GameScene.sks */,
 				6095E3011F645D1300E18CDC /* GameScene.swift */,
+				6095E2FD1F645D1300E18CDC /* GameScene.sks */,
 				60444EE01F64864D002183EF /* Tiles */,
 				60444EE11F648660002183EF /* Nodes */,
 				6095E3051F645D1300E18CDC /* Main.storyboard */,
