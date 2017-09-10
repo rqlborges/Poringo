@@ -85,7 +85,7 @@
 				6095E3081F645D1300E18CDC /* Assets.xcassets */,
 				D8790D801F64CDB0003D014B /* Storyboard */,
 				D8790D7F1F64CD91003D014B /* Controller */,
-				6095E2FD1F645D1300E18CDC /* GameScene.sks */,
+				D8790D811F64CE4E003D014B /* Scene */,
 				60444EE01F64864D002183EF /* Tiles */,
 				60444EE11F648660002183EF /* Nodes */,
 				6095E30D1F645D1300E18CDC /* Info.plist */,
@@ -109,6 +109,14 @@
 				6095E30A1F645D1300E18CDC /* LaunchScreen.storyboard */,
 			);
 			name = Storyboard;
+			sourceTree = "<group>";
+		};
+		D8790D811F64CE4E003D014B /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				6095E2FD1F645D1300E18CDC /* GameScene.sks */,
+			);
+			name = Scene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
