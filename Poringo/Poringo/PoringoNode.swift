@@ -28,6 +28,18 @@ class PoringoNode: SKSpriteNode {
         super.init(coder: aDecoder)
     }
     
+    
+    /**
+     Instantiates a Poringo Node
+     
+     
+     - Parameters:
+     
+        - moveDistance: The distance Poringo should move. It should be equal to your tile size.
+        - initialDirection: The direction which poringo should head first.
+        - position: Center of the tile poringo should start.
+        - size: Poringo's size.
+     */
     public init(moveDistance:Float, initialDirection:Direction, position:CGPoint, size:CGSize){
         let texture = SKTexture(image: #imageLiteral(resourceName: "RO2_Poring"))
         super.init(texture: texture, color: UIColor.green, size: size)
@@ -37,7 +49,12 @@ class PoringoNode: SKSpriteNode {
         self.action = getAction(from: initialDirection)
     }
     
-    public func play(tileMap:SKTileMapNode){
+    /**
+     Should be called on every update.
+     
+     
+     */
+    public func update(tileMap:SKTileMapNode){
         let pos = tileMap.convert(position, from: self.parent!)
         
         let column = tileMap.tileColumnIndex(fromPosition: pos)
