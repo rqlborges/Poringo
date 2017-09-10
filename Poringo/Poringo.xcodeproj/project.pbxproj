@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6025EF2A1F64831600EAA51C /* GroundTiles.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6025EF291F64831600EAA51C /* GroundTiles.sks */; };
+		6025EF2C1F64832700EAA51C /* RoadTiles.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6025EF2B1F64832700EAA51C /* RoadTiles.sks */; };
 		6095E2FC1F645D1300E18CDC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6095E2FB1F645D1300E18CDC /* AppDelegate.swift */; };
 		6095E2FE1F645D1300E18CDC /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6095E2FD1F645D1300E18CDC /* GameScene.sks */; };
-		6095E3001F645D1300E18CDC /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6095E2FF1F645D1300E18CDC /* Actions.sks */; };
 		6095E3021F645D1300E18CDC /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6095E3011F645D1300E18CDC /* GameScene.swift */; };
 		6095E3041F645D1300E18CDC /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6095E3031F645D1300E18CDC /* GameViewController.swift */; };
 		6095E3071F645D1300E18CDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6095E3051F645D1300E18CDC /* Main.storyboard */; };
@@ -19,10 +20,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6025EF291F64831600EAA51C /* GroundTiles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GroundTiles.sks; sourceTree = "<group>"; };
+		6025EF2B1F64832700EAA51C /* RoadTiles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RoadTiles.sks; sourceTree = "<group>"; };
 		6095E2F81F645D1200E18CDC /* Poringo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poringo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6095E2FB1F645D1300E18CDC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6095E2FD1F645D1300E18CDC /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		6095E2FF1F645D1300E18CDC /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		6095E3011F645D1300E18CDC /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		6095E3031F645D1300E18CDC /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		6095E3061F645D1300E18CDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -43,6 +45,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		60444EE01F64864D002183EF /* Tiles */ = {
+			isa = PBXGroup;
+			children = (
+				6025EF291F64831600EAA51C /* GroundTiles.sks */,
+				6025EF2B1F64832700EAA51C /* RoadTiles.sks */,
+			);
+			name = Tiles;
+			sourceTree = "<group>";
+		};
+		60444EE11F648660002183EF /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Nodes;
+			sourceTree = "<group>";
+		};
 		6095E2EF1F645D1200E18CDC = {
 			isa = PBXGroup;
 			children = (
@@ -64,10 +82,11 @@
 			children = (
 				D8658A251F6473E800D861FF /* Entities */,
 				6095E2FB1F645D1300E18CDC /* AppDelegate.swift */,
-				6095E2FD1F645D1300E18CDC /* GameScene.sks */,
-				6095E2FF1F645D1300E18CDC /* Actions.sks */,
-				6095E3011F645D1300E18CDC /* GameScene.swift */,
 				6095E3031F645D1300E18CDC /* GameViewController.swift */,
+				6095E3011F645D1300E18CDC /* GameScene.swift */,
+				6095E2FD1F645D1300E18CDC /* GameScene.sks */,
+				60444EE01F64864D002183EF /* Tiles */,
+				60444EE11F648660002183EF /* Nodes */,
 				6095E3051F645D1300E18CDC /* Main.storyboard */,
 				6095E3081F645D1300E18CDC /* Assets.xcassets */,
 				6095E30A1F645D1300E18CDC /* LaunchScreen.storyboard */,
@@ -144,11 +163,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6025EF2C1F64832700EAA51C /* RoadTiles.sks in Resources */,
 				6095E3071F645D1300E18CDC /* Main.storyboard in Resources */,
 				6095E2FE1F645D1300E18CDC /* GameScene.sks in Resources */,
+				6025EF2A1F64831600EAA51C /* GroundTiles.sks in Resources */,
 				6095E3091F645D1300E18CDC /* Assets.xcassets in Resources */,
 				6095E30C1F645D1300E18CDC /* LaunchScreen.storyboard in Resources */,
-				6095E3001F645D1300E18CDC /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
