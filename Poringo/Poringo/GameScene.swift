@@ -72,11 +72,9 @@ class GameScene: SKScene {
      
      The translation is cumullative, it is a bidimencoinal vector that represents how much the user has dragged it's finger through the screen. In order to make the camera follow the user finger, the method has to reset the translation value everytime it's called. In this specific case the translation is reseted everytime the method is called, and it's state is either .changed or .ended.
      
-     
      - Parameters:
      
         - recognizer: The UIPanGestureRecognizer that manages the camera drag.
-     
     */
     @objc
     func handlePan(recognizer: UIPanGestureRecognizer){
@@ -132,6 +130,11 @@ class GameScene: SKScene {
             }
             
         }
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode)
     }
     
     //MARK: - Update
