@@ -17,6 +17,7 @@
 		6095E3091F645D1300E18CDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6095E3081F645D1300E18CDC /* Assets.xcassets */; };
 		6095E30C1F645D1300E18CDC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6095E30A1F645D1300E18CDC /* LaunchScreen.storyboard */; };
 		D8790D7E1F64CCF1003D014B /* PoringoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790D7D1F64CCF1003D014B /* PoringoNode.swift */; };
+		D8790D841F64DEE6003D014B /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790D831F64DEE6003D014B /* Direction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		6095E30B1F645D1300E18CDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6095E30D1F645D1300E18CDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8790D7D1F64CCF1003D014B /* PoringoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoringoNode.swift; sourceTree = "<group>"; };
+		D8790D831F64DEE6003D014B /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		6095E2FA1F645D1200E18CDC /* Poringo */ = {
 			isa = PBXGroup;
 			children = (
+				D8790D821F64DECA003D014B /* Entities */,
 				6095E2FB1F645D1300E18CDC /* AppDelegate.swift */,
 				6095E3081F645D1300E18CDC /* Assets.xcassets */,
 				D8790D801F64CDB0003D014B /* Storyboard */,
@@ -117,6 +120,14 @@
 				6095E2FD1F645D1300E18CDC /* GameScene.sks */,
 			);
 			name = Scene;
+			sourceTree = "<group>";
+		};
+		D8790D821F64DECA003D014B /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				D8790D831F64DEE6003D014B /* Direction.swift */,
+			);
+			name = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +209,7 @@
 				D8790D7E1F64CCF1003D014B /* PoringoNode.swift in Sources */,
 				6095E3021F645D1300E18CDC /* GameScene.swift in Sources */,
 				6095E3041F645D1300E18CDC /* GameViewController.swift in Sources */,
+				D8790D841F64DEE6003D014B /* Direction.swift in Sources */,
 				6095E2FC1F645D1300E18CDC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
