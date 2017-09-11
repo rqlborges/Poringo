@@ -17,6 +17,10 @@ class GameScene: SKScene {
     var poringo:PoringoNode!
     var playButton:SKNode!
     
+    var initColumn:Int!
+    var initRow:Int!
+    var initDirection:Direction!
+    
     var directionsTileMapNode:SKTileMapNode!// z = 0
     var waterTileMapNode:SKTileMapNode!     // z = 1
     var grassTileMapNode:SKTileMapNode!     // z = 2
@@ -29,8 +33,10 @@ class GameScene: SKScene {
         // -- SETUP
         setupCamera()
         setupPanGesture()
+        setupUserData()
         instantiateTileMapNodes()
         setupNodes()
+        
     }
     
     //MARK: - Update
@@ -41,6 +47,21 @@ class GameScene: SKScene {
     }
     
     //MARK: - SETUP
+    
+    func setupUserData(){
+        if let column = self.userData?.value(forKey: "initColumn") as? Int{
+            initColumn = column
+        }
+        if let row = self.userData?.value(forKey: "initRow") as? Int{
+            initRow = row
+        }
+        if let direction = self.userData?.value(forKey: "initDirection") as? Int{
+            initDirection = Direction(rawValue: direction)
+        }else{
+            initDirection = Direction.right
+        }
+    }
+    
     
     /**
      Instantiate every TileMapNode in the scene, and store it in a class atribute.
@@ -71,10 +92,10 @@ class GameScene: SKScene {
     
     func setupNodes(){
         //Setup Poringo
-        let position = roadTileMapNode.centerOfTile(atColumn: 10, row: 9)
+        let position = roadTileMapNode.centerOfTile(atColumn: initColumn, row: initRow)
         
         let size = CGSize(width: 64, height: 64)
-        poringo = PoringoNode(moveDistance: 64, timeToCompleteMove: 0.5, initialDirection: Direction.right, position: position, size: size)
+        poringo = PoringoNode(moveDistance: 64, timeToCompleteMove: 0.5, initialDirection: initDirection, position: position, size: size)
         poringo.zPosition = 4
         self.addChild(poringo)
         
@@ -169,7 +190,7 @@ class GameScene: SKScene {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode, ruledBy: directionsTileMapNode)
+//        ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode, ruledBy: directionsTileMapNode)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
