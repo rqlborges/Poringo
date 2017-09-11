@@ -74,9 +74,10 @@ class PoringoNode: SKSpriteNode {
             if !(self.hasActions()){
                 self.run(action!)
             }
-        }else if let num = tile?.userData?.value(forKey: "num") as? Int{
+        }else if let num = tile?.userData?.value(forKey: "num") as? Double{
+            let signal = tile?.userData?.value(forKey: "signal") as! String
             if !(self.hasActions()){
-                totalFoodEaten += Double(num)
+                totalFoodEaten = calculate(with: num, signal: signal)
                 self.run(action!)
             }
         }else if let _ = tile?.userData?.value(forKey: "road"){
@@ -86,6 +87,21 @@ class PoringoNode: SKSpriteNode {
             }
         }
         
+    }
+    
+    func calculate(with num:Double, signal:String) -> Double{
+        switch signal {
+        case "plus":
+            return totalFoodEaten + num
+        case "minus":
+            return totalFoodEaten - num
+        case "times":
+            return totalFoodEaten * num
+        case "dividedBy":
+            return totalFoodEaten / num
+        default:
+            return 0
+        }
     }
     
     private func getNextDirection(tileMap:SKTileMapNode, column:Int, row:Int) -> Direction?{
