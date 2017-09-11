@@ -19,6 +19,7 @@
 		6095E30C1F645D1300E18CDC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6095E30A1F645D1300E18CDC /* LaunchScreen.storyboard */; };
 		D8790D7E1F64CCF1003D014B /* PoringoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790D7D1F64CCF1003D014B /* PoringoNode.swift */; };
 		D8790D841F64DEE6003D014B /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790D831F64DEE6003D014B /* Direction.swift */; };
+		D8790D881F660F5C003D014B /* Example.sks in Resources */ = {isa = PBXBuildFile; fileRef = D8790D871F660F5C003D014B /* Example.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		6095E30D1F645D1300E18CDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8790D7D1F64CCF1003D014B /* PoringoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoringoNode.swift; sourceTree = "<group>"; };
 		D8790D831F64DEE6003D014B /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		D8790D871F660F5C003D014B /* Example.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Example.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				6095E2FD1F645D1300E18CDC /* GameScene.sks */,
+				D8790D871F660F5C003D014B /* Example.sks */,
 			);
 			name = Scene;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8790D881F660F5C003D014B /* Example.sks in Resources */,
 				6025EF2C1F64832700EAA51C /* RoadTiles.sks in Resources */,
 				6095E3071F645D1300E18CDC /* Main.storyboard in Resources */,
 				6095E2FE1F645D1300E18CDC /* GameScene.sks in Resources */,

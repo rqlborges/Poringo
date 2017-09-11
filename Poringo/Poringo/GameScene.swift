@@ -12,6 +12,11 @@ import GameplayKit
 class GameScene: SKScene {
     
     //MARK: Scene TileMapNodes
+    var isPlaying = false
+    
+    var poringo:PoringoNode!
+    var playButton:SKNode!
+    
     var waterTileMapNode:SKTileMapNode! // z = 0
     var grassTileMapNode:SKTileMapNode! // z = 1
     var roadTileMapNode:SKTileMapNode!  // z = 2
@@ -24,6 +29,14 @@ class GameScene: SKScene {
         setupCamera()
         setupPanGesture()
         instantiateTileMapNodes()
+        setupNodes()
+    }
+    
+    //MARK: - Update
+    override func update(_ currentTime: TimeInterval) {
+        if isPlaying {
+            poringo.update(tileMap: roadTileMapNode)
+        }
     }
     
     //MARK: - SETUP
@@ -49,6 +62,22 @@ class GameScene: SKScene {
         self.grassTileMapNode = grassTileMapNode
         self.roadTileMapNode = roadTileMapNode
     }
+    
+    func setupNodes(){
+        //Setup Poringo
+        let position = roadTileMapNode.centerOfTile(atColumn: 10, row: 9)
+        
+        let size = CGSize(width: 64, height: 64)
+        poringo = PoringoNode(moveDistance: 64, timeToCompleteMove: 0.5, initialDirection: Direction.right, position: position, size: size)
+        poringo.zPosition = 4
+        self.addChild(poringo)
+        
+        playButton = SKSpriteNode(color: UIColor.red, size: CGSize(width: 100, height: 44))
+        playButton.position = CGPoint(x:self.frame.midX, y:self.frame.midX);
+        playButton.zPosition = 5
+        self.addChild(playButton)
+    }
+    
     
     /**
      Setup a SKCameraNode to be the scene camera.
@@ -137,9 +166,14 @@ class GameScene: SKScene {
         ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode)
     }
     
-    //MARK: - Update
-    override func update(_ currentTime: TimeInterval) {
-        
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let location = touches.first?.location(in: self)
+        // Check if the location of the touch is within the button's bounds
+        if playButton.contains(location!) {
+            isPlaying = true
+            playButton.isHidden = true
+        }
     }
+    
     
 }
