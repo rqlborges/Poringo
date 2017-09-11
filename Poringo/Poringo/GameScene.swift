@@ -17,9 +17,10 @@ class GameScene: SKScene {
     var poringo:PoringoNode!
     var playButton:SKNode!
     
-    var waterTileMapNode:SKTileMapNode! // z = 0
-    var grassTileMapNode:SKTileMapNode! // z = 1
-    var roadTileMapNode:SKTileMapNode!  // z = 2
+    var directionsTileMapNode:SKTileMapNode!// z = 0
+    var waterTileMapNode:SKTileMapNode!     // z = 1
+    var grassTileMapNode:SKTileMapNode!     // z = 2
+    var roadTileMapNode:SKTileMapNode!      // z = 3
     
     var panGestureRecognizer:UIPanGestureRecognizer!
     var translation:CGPoint = .zero
@@ -45,6 +46,10 @@ class GameScene: SKScene {
      Instantiate every TileMapNode in the scene, and store it in a class atribute.
      */
     func instantiateTileMapNodes() {
+        guard let directionsTileMapNode = childNode(withName: "DirectionIndicators")
+            as? SKTileMapNode else {
+                fatalError("Direction Indicators node not loaded")
+        }
         guard let waterTileMapNode = childNode(withName: "Water")
             as? SKTileMapNode else {
                 fatalError("Water Background node not loaded")
@@ -58,6 +63,7 @@ class GameScene: SKScene {
                 fatalError("Road node not loaded")
         }
         
+        self.directionsTileMapNode = directionsTileMapNode 
         self.waterTileMapNode = waterTileMapNode
         self.grassTileMapNode = grassTileMapNode
         self.roadTileMapNode = roadTileMapNode
@@ -163,7 +169,7 @@ class GameScene: SKScene {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode)
+        ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode, ruledBy: directionsTileMapNode)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
