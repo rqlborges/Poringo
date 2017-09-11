@@ -18,12 +18,12 @@ class ArrowTileSwitch {
      
      - Parameters:
      
-        - touch: The input UITouch that has touched a tile.
+     - touch: The input UITouch that has touched a tile.
      
-        - tileMapNode: The tileMapNode that must contain an arrow tile to be modified.
+     - tileMapNode: The tileMapNode that must contain an arrow tile to be modified.
      
      */
-    static func toNextArrow(for touch:UITouch, in tileMapNode:SKTileMapNode) {
+    static func toNextArrow(for touch:UITouch, in tileMapNode:SKTileMapNode, ruledBy directions:SKTileMapNode) {
         
         let touchPosition = touch.location(in: tileMapNode)
         let row = tileMapNode.tileRowIndex(fromPosition: touchPosition)
@@ -33,30 +33,66 @@ class ArrowTileSwitch {
         if (selectedTileGroup?.name == "ArrowsTileGroup") {
             if let arrowTileGroup = tileMapNode.tileSet.tileGroups.first(where: {$0.name == "ArrowsTileGroup"}){
                 let selectedTileDefinition = tileMapNode.tileDefinition(atColumn: column, row: row)
-                if let selectedTileDefinitionDirection = selectedTileDefinition?.userData?.value(forKey: "direction") as? Int {
+                if var selectedTileDefinitionDirection = selectedTileDefinition?.userData?.value(forKey: "direction") as? Int {
+
+                    var didSetArrow = false
                     
-                    switch selectedTileDefinitionDirection {
-                    case Direction.left.rawValue:
-                        guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "arrow_up"}) else { return }
-                        tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
-                    case Direction.up.rawValue:
-                        guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "arrow_right"}) else { return }
-                        tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
-                    case Direction.right.rawValue:
-                        guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "arrow_down"}) else { return }
-                        tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
-                    case Direction.down.rawValue:
-                        guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "arrow_left"}) else { return }
-                        tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
-                    default:
-                        print("Arrow tile switch failed")
-                        return
-                    }
                     
+                    
+                    repeat{
+                        
+                        switch selectedTileDefinitionDirection {
+                        case Direction.left.rawValue:
+                            if (directions.tileGroup(atColumn: column, row: row + 1) != nil) {
+                                guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "arrow_up"}) else { return }
+                                tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
+                                didSetArrow = true
+                            } else {
+                                print("No Up indicator")
+                                selectedTileDefinitionDirection = Direction.up.rawValue
+                                break
+                            }
+                        case Direction.up.rawValue:
+                            if (directions.tileGroup(atColumn: column + 1, row: row) != nil) {
+                                guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "arrow_right"}) else { return }
+                                tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
+                                didSetArrow = true
+                            } else {
+                                print("No Right indicator")
+                                selectedTileDefinitionDirection = Direction.right.rawValue
+                                break
+                            }
+                        case Direction.right.rawValue:
+                            if (directions.tileGroup(atColumn: column, row: row - 1) != nil) {
+                                guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "arrow_down"}) else { return }
+                                tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
+                                didSetArrow = true
+                            } else {
+                                print("No Down indicator")
+                                selectedTileDefinitionDirection = Direction.down.rawValue
+                                break
+                            }
+                        case Direction.down.rawValue:
+                            if (directions.tileGroup(atColumn: column - 1, row: row) != nil) {
+                                guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "arrow_left"}) else { return }
+                                tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
+                                didSetArrow = true
+                            } else {
+                                print("No Left indicator")
+                                selectedTileDefinitionDirection = Direction.left.rawValue
+                                break
+                            }
+                        default:
+                            print("Arrow tile switch failed")
+                            return
+                        }
+                        
+                    } while (didSetArrow == false)
+                    print("Did set arrow")
                 }
             }
         }
-
+        
         
     }
     
