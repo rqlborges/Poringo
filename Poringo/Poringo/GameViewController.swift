@@ -22,23 +22,10 @@ class GameViewController: UIViewController {
             self.playButton.setBackgroundImage(#imageLiteral(resourceName: "Play Button"), for: .normal)
             self.playButton.setBackgroundImage(#imageLiteral(resourceName: "PlayButton_Selected"), for: .selected)
         }
-        
-        
-        if let view = self.view as! SKView? {
-            if let scene = SKScene(fileNamed: "Example") {
-                gameScene = scene
-                scene.scaleMode = .aspectFill
-                
-                view.presentScene(scene)
-            }
-            
-            view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
-        }
+
     }
     
+    //MARK: - Setup
     override var shouldAutorotate: Bool {
         return true
     }
@@ -50,11 +37,28 @@ class GameViewController: UIViewController {
             return .all
         }
     }
-    @IBAction func go(_ sender: Any) {
-        gameScene.userData?.addEntries(from: ["isPlaying":true])
-    }
     
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+
+    func instantiateLevel(number: Int) {
+        if let view = self.view as! SKView? {
+            if let scene = SKScene(fileNamed: "level_\(number)") {
+                scene.scaleMode = .aspectFill
+                view.presentScene(scene)
+            }
+            
+            view.ignoresSiblingOrder = true
+            view.showsFPS = true
+            view.showsNodeCount = true
+        }
+    }
+    
+    //MARK: - Actions
+    
+    @IBAction func go(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+//        gameScene.userData?.addEntries(from: ["isPlaying":true])
     }
 }
