@@ -78,6 +78,7 @@ class PoringoNode: SKSpriteNode {
             let signal = tile?.userData?.value(forKey: "signal") as! String
             if !(self.hasActions()){
                 totalFoodEaten = calculate(with: num, signal: signal)
+                action = getAction(from: getNextDirection(tileMap: tileMap, column: column, row: row)!)
                 self.run(action!)
             }
         }else if let _ = tile?.userData?.value(forKey: "road"){
@@ -115,6 +116,10 @@ class PoringoNode: SKSpriteNode {
                 
                 return Direction.right
             }
+            if let _ = tileMap.tileDefinition(atColumn: column+1, row: row)?.userData?.value(forKey: "num"){
+                
+                return Direction.right
+            }
             if let _ = tileMap.tileDefinition(atColumn: column, row: row+1)?.userData?.value(forKey: "road"){
                 
                 return Direction.up
@@ -123,11 +128,19 @@ class PoringoNode: SKSpriteNode {
                 
                 return Direction.up
             }
+            if let _ = tileMap.tileDefinition(atColumn: column, row: row+1)?.userData?.value(forKey: "num"){
+                
+                return Direction.up
+            }
             if let _ = tileMap.tileDefinition(atColumn: column, row: row-1)?.userData?.value(forKey: "road"){
                 
                 return Direction.down
             }
             if let _ = tileMap.tileDefinition(atColumn: column, row: row-1)?.userData?.value(forKey: "direction"){
+                
+                return Direction.down
+            }
+            if let _ = tileMap.tileDefinition(atColumn: column, row: row-1)?.userData?.value(forKey: "num"){
                 
                 return Direction.down
             }
@@ -142,6 +155,10 @@ class PoringoNode: SKSpriteNode {
                 
                 return Direction.left
             }
+            if let _ = tileMap.tileDefinition(atColumn: column-1, row: row)?.userData?.value(forKey: "num"){
+                
+                return Direction.left
+            }
             if let _ = tileMap.tileDefinition(atColumn: column, row: row+1)?.userData?.value(forKey: "road"){
                 
                 return Direction.up
@@ -150,11 +167,19 @@ class PoringoNode: SKSpriteNode {
                 
                 return Direction.up
             }
+            if let _ = tileMap.tileDefinition(atColumn: column, row: row+1)?.userData?.value(forKey: "num"){
+                
+                return Direction.up
+            }
             if let _ = tileMap.tileDefinition(atColumn: column, row: row-1)?.userData?.value(forKey: "road"){
                 
                 return Direction.down
             }
             if let _ = tileMap.tileDefinition(atColumn: column, row: row-1)?.userData?.value(forKey: "direction"){
+                
+                return Direction.down
+            }
+            if let _ = tileMap.tileDefinition(atColumn: column, row: row-1)?.userData?.value(forKey: "num"){
                 
                 return Direction.down
             }
@@ -169,6 +194,10 @@ class PoringoNode: SKSpriteNode {
                 
                 return Direction.up
             }
+            if let _ = tileMap.tileDefinition(atColumn: column, row: row+1)?.userData?.value(forKey: "num"){
+                
+                return Direction.up
+            }
             if let _ = tileMap.tileDefinition(atColumn: column-1, row: row)?.userData?.value(forKey: "road"){
                 
                 return Direction.left
@@ -177,11 +206,19 @@ class PoringoNode: SKSpriteNode {
                 
                 return Direction.left
             }
+            if let _ = tileMap.tileDefinition(atColumn: column-1, row: row)?.userData?.value(forKey: "num"){
+                
+                return Direction.left
+            }
             if let _ = tileMap.tileDefinition(atColumn: column+1, row: row)?.userData?.value(forKey: "road"){
                 
                 return Direction.right
             }
             if let _ = tileMap.tileDefinition(atColumn: column+1, row: row)?.userData?.value(forKey: "direction"){
+                
+                return Direction.right
+            }
+            if let _ = tileMap.tileDefinition(atColumn: column+1, row: row)?.userData?.value(forKey: "num"){
                 
                 return Direction.right
             }
@@ -196,6 +233,10 @@ class PoringoNode: SKSpriteNode {
                 
                 return Direction.down
             }
+            if let _ = tileMap.tileDefinition(atColumn: column, row: row-1)?.userData?.value(forKey: "num"){
+                
+                return Direction.down
+            }
             if let _ = tileMap.tileDefinition(atColumn: column-1, row: row)?.userData?.value(forKey: "road"){
                 
                 return Direction.left
@@ -204,11 +245,19 @@ class PoringoNode: SKSpriteNode {
                 
                 return Direction.left
             }
+            if let _ = tileMap.tileDefinition(atColumn: column-1, row: row)?.userData?.value(forKey: "num"){
+                
+                return Direction.left
+            }
             if let _ = tileMap.tileDefinition(atColumn: column+1, row: row)?.userData?.value(forKey: "road"){
                 
                 return Direction.right
             }
             if let _ = tileMap.tileDefinition(atColumn: column+1, row: row)?.userData?.value(forKey: "direction"){
+                
+                return Direction.right
+            }
+            if let _ = tileMap.tileDefinition(atColumn: column+1, row: row)?.userData?.value(forKey: "num"){
                 
                 return Direction.right
             }

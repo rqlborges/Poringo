@@ -12,10 +12,9 @@ import GameplayKit
 class GameScene: SKScene {
     
     //MARK: Scene TileMapNodes
-    var isPlaying = false
+    public var isPlaying = false
     
     var poringo:PoringoNode!
-    var playButton:SKNode!
     
     var initColumn:Int!
     var initRow:Int!
@@ -43,6 +42,8 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         if isPlaying {
             poringo.update(tileMap: roadTileMapNode)
+        }else if let play = self.userData?.value(forKey: "isPlaying") as? Bool{
+            isPlaying = play
         }
     }
     
@@ -93,16 +94,10 @@ class GameScene: SKScene {
     func setupNodes(){
         //Setup Poringo
         let position = roadTileMapNode.centerOfTile(atColumn: initColumn, row: initRow)
-        
         let size = CGSize(width: 64, height: 64)
         poringo = PoringoNode(moveDistance: 64, timeToCompleteMove: 0.5, initialDirection: initDirection, position: position, size: size)
         poringo.zPosition = 4
         self.addChild(poringo)
-        
-        playButton = SKSpriteNode(color: UIColor.red, size: CGSize(width: 100, height: 44))
-        playButton.position = CGPoint(x:self.frame.midX, y:self.frame.midX);
-        playButton.zPosition = 5
-        self.addChild(playButton)
     }
     
     
@@ -190,16 +185,12 @@ class GameScene: SKScene {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-//        ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode, ruledBy: directionsTileMapNode)
+        ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode, ruledBy: directionsTileMapNode)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let location = touches.first?.location(in: self)
-        // Check if the location of the touch is within the button's bounds
-        if playButton.contains(location!) {
-            isPlaying = true
-            playButton.isHidden = true
-        }
+//        let location = touches.first?.location(in: self)
+        
     }
     
     

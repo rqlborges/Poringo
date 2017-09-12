@@ -12,11 +12,21 @@ import GameplayKit
 
 class GameViewController: UIViewController {
     
+    @IBOutlet weak var playButton: UIButton!
+    var gameScene:SKScene!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        DispatchQueue.main.async {
+            self.playButton.setBackgroundImage(#imageLiteral(resourceName: "Play Button"), for: .normal)
+            self.playButton.setBackgroundImage(#imageLiteral(resourceName: "PlayButton_Selected"), for: .selected)
+        }
+        
+        
         if let view = self.view as! SKView? {
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = SKScene(fileNamed: "Example") {
+                gameScene = scene
                 scene.scaleMode = .aspectFill
                 
                 view.presentScene(scene)
@@ -39,6 +49,9 @@ class GameViewController: UIViewController {
         } else {
             return .all
         }
+    }
+    @IBAction func go(_ sender: Any) {
+        gameScene.userData?.addEntries(from: ["isPlaying":true])
     }
     
     override var prefersStatusBarHidden: Bool {
