@@ -15,10 +15,16 @@ class GameScene: SKScene {
     public var isPlaying = false
     
     var poringo:PoringoNode!
+    var light:SKLightNode!
+    var color:SKSpriteNode!
     
     var initColumn:Int!
     var initRow:Int!
     var initDirection:Direction!
+    var totalFoodNeeded:Double!
+    var timeToFinish:Int!
+    
+    var pause = true
     
     var directionsTileMapNode:SKTileMapNode!// z = 0
     var waterTileMapNode:SKTileMapNode!     // z = 1
@@ -30,26 +36,66 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         // -- SETUP
+        setupUI()
         setupCamera()
         setupPanGesture()
         setupUserData()
         instantiateTileMapNodes()
         setupNodes()
         
+        
     }
     
     //MARK: - Update
     override func update(_ currentTime: TimeInterval) {
-        if isPlaying {
+        if !pause{
+            if !color.hasActions(){
+                color.run(SKAction.colorize(with: UIColor.blue, colorBlendFactor: 1, duration: TimeInterval(timeToFinish)))
+            }
             poringo.update(tileMap: roadTileMapNode)
-        }else if let play = self.userData?.value(forKey: "isPlaying") as? Bool{
-            isPlaying = play
+            light.ambientColor = color.color
+            if poringo.position.y == roadTileMapNode.centerOfTile(atColumn: 0, row: roadTileMapNode.numberOfColumns - 1).y{
+                isPlaying = false
+            }
         }
+        if poringo.finished{
+            
+        }
+        
+        
     }
     
     //MARK: - SETUP
     
+    func setupUI(){
+        //Play Button
+        let playButton = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 40))
+        playButton.setBackgroundImage(#imageLiteral(resourceName: "Play Button"), for: .normal)
+        playButton.setBackgroundImage(#imageLiteral(resourceName: "PlayButton_Selected"), for: .selected)
+        playButton.layer.position = CGPoint(x: 60, y: 36)
+        playButton.addTarget(self, action: #selector(go(_:)), for: .touchUpInside)
+        self.view?.addSubview(playButton)
+        
+        //End Game Menu
+//        let square = UIView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
+//        square.layer.cornerRadius = CGFloat(10)
+//        square.center = CGPoint(x: (self.view?.bounds.width)!/2, y: (self.view?.bounds.height)!/2)
+//        square.backgroundColor = UIColor.red
+//        let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+//        menuButton.center = CGPoint(x: square.bounds.width/2, y: square.bounds.height/2)
+//        menuButton.backgroundColor = UIColor.black
+//        square.addSubview(menuButton)
+//        self.view?.addSubview(square)
+    }
+    
+    
     func setupUserData(){
+        if let timeToFinish = self.userData?.value(forKey: "timeToFinish") as? Int{
+            self.timeToFinish = timeToFinish
+        }
+        if let totalFoodNeeded = self.userData?.value(forKey: "totalFoodNeeded") as? Float{
+            self.totalFoodNeeded = Double(totalFoodNeeded)
+        }
         if let column = self.userData?.value(forKey: "initColumn") as? Int{
             initColumn = column
         }
@@ -85,7 +131,7 @@ class GameScene: SKScene {
                 fatalError("Road node not loaded")
         }
         
-        self.directionsTileMapNode = directionsTileMapNode 
+        self.directionsTileMapNode = directionsTileMapNode
         self.waterTileMapNode = waterTileMapNode
         self.grassTileMapNode = grassTileMapNode
         self.roadTileMapNode = roadTileMapNode
@@ -95,9 +141,27 @@ class GameScene: SKScene {
         //Setup Poringo
         let position = roadTileMapNode.centerOfTile(atColumn: initColumn, row: initRow)
         let size = CGSize(width: 64, height: 64)
-        poringo = PoringoNode(moveDistance: 64, timeToCompleteMove: 0.5, initialDirection: initDirection, position: position, size: size)
+        poringo = PoringoNode(moveDistance: 64, timeToCompleteMove: 0.25, initialDirection: initDirection, position: position, size: size, totalFoodNeeded: totalFoodNeeded)
         poringo.zPosition = 4
+        poringo.lightingBitMask = 1
         self.addChild(poringo)
+        
+        roadTileMapNode.lightingBitMask = 1
+        grassTileMapNode.lightingBitMask = 1
+        
+        
+        light = SKLightNode()
+        light.ambientColor = UIColor.white
+        light.falloff = -50
+        
+        
+        
+        self.addChild(light)
+        
+        
+        color = SKSpriteNode(color: UIColor.white, size: CGSize(width: 0, height: 0))
+        self.addChild(color)
+        
     }
     
     
@@ -125,8 +189,8 @@ class GameScene: SKScene {
      
      - Parameters:
      
-        - recognizer: The UIPanGestureRecognizer that manages the camera drag.
-    */
+     - recognizer: The UIPanGestureRecognizer that manages the camera drag.
+     */
     @objc
     func handlePan(recognizer: UIPanGestureRecognizer){
         let cameraLimitX = self.waterTileMapNode.frame.width/2 - self.frame.width/2
@@ -182,16 +246,19 @@ class GameScene: SKScene {
             
         }
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode, ruledBy: directionsTileMapNode)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        let location = touches.first?.location(in: self)
+        //        let location = touches.first?.location(in: self)
         
     }
     
+    func go(_ sender: Any) {
+        pause = false
+    }
     
 }

@@ -12,17 +12,15 @@ import GameplayKit
 
 class GameViewController: UIViewController {
     
-    @IBOutlet weak var playButton: UIButton!
     var gameScene:SKScene!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.main.async {
-            self.playButton.setBackgroundImage(#imageLiteral(resourceName: "Play Button"), for: .normal)
-            self.playButton.setBackgroundImage(#imageLiteral(resourceName: "PlayButton_Selected"), for: .selected)
-        }
-
+        
+//        self.playButton.setBackgroundImage(#imageLiteral(resourceName: "Play Button"), for: .normal)
+//        self.playButton.setBackgroundImage(#imageLiteral(resourceName: "PlayButton_Selected"), for: .selected)
+        
     }
     
     //MARK: - Setup
@@ -41,12 +39,13 @@ class GameViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
-
+    
     func instantiateLevel(number: Int) {
         if let view = self.view as! SKView? {
             if let scene = SKScene(fileNamed: "level_\(number)") {
-                scene.scaleMode = .aspectFill
-                view.presentScene(scene)
+                gameScene = scene
+                gameScene.scaleMode = .aspectFill
+                view.presentScene(gameScene)
             }
             
             view.ignoresSiblingOrder = true
@@ -57,8 +56,13 @@ class GameViewController: UIViewController {
     
     //MARK: - Actions
     
-    @IBAction func go(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-//        gameScene.userData?.addEntries(from: ["isPlaying":true])
+    
+    
+    func endGameUI(){
+        let square = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 250))
+        square.layer.cornerRadius = CGFloat(10)
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        square.addSubview(button)
     }
+    
 }
