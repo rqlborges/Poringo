@@ -16,6 +16,11 @@ class CurrentLevel: NSObject {
     static let key:String = "CurrentLevel"
     
     /**
+     Current level user is playing.
+     */
+    static var currentPlayingLevel = 0
+    
+    /**
      Current level number retrieved from UserDefaults.
      */
     static let number:Int = {

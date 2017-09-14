@@ -24,12 +24,16 @@ class LevelCollectionViewCell: UICollectionViewCell {
     func config(number: Int) {
         self.number = number
         self.levelButton.setTitle("\(self.number)", for: .normal)
+        if number > CurrentLevel.number {
+            self.levelButton.isEnabled = false
+        }
     }
     
     
     //MARK: - Actions
     @IBAction func levelButtonAction(_ sender: UIButton) {
         self.delegate?.configureLevel(number: self.number)
+        CurrentLevel.currentPlayingLevel = self.number
     }
 
 }

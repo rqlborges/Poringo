@@ -48,7 +48,7 @@ class PoringoNode: SKSpriteNode {
      - size: Poringo's size.
      */
     public init(moveDistance:Float, timeToCompleteMove:TimeInterval, initialDirection:Direction, position:CGPoint, size:CGSize, totalFoodNeeded:Double){
-        let texture = SKTexture(image: #imageLiteral(resourceName: "RO2_Poring"))
+        let texture = SKTexture(image: #imageLiteral(resourceName: "Porigo_Idle"))
         super.init(texture: texture, color: UIColor.green, size: size)
         self.moveDistance = moveDistance
         self.position = position
@@ -57,6 +57,7 @@ class PoringoNode: SKSpriteNode {
         
         
         self.action = getAction(from: initialDirection)
+        
     }
     
     /**
@@ -70,9 +71,9 @@ class PoringoNode: SKSpriteNode {
             let pos = tileMap.convert(position, from: self.parent!)
             
             let column = tileMap.tileColumnIndex(fromPosition: pos)
-            print(column)
+//            print(column)
             let row = tileMap.tileRowIndex(fromPosition: pos)
-            print(row)
+//            print(row)
             
             let tile = tileMap.tileDefinition(atColumn: column, row: row)
             
@@ -86,11 +87,11 @@ class PoringoNode: SKSpriteNode {
                     if totalFoodEaten == totalFoodNeeded {
                         won = true
                         finished = true
+                        print("GANHOU")
                     }else{
+                        print("PERDEU")
                         finished = true
                     }
-//                    action = getAction(from: getNextDirection(tileMap: tileMap, column: column, row: row)!)
-//                    self.run(action!)
                 }
             }else if let num = tile?.userData?.value(forKey: "num") as? Double{
                 let signal = tile?.userData?.value(forKey: "signal") as! String
@@ -339,6 +340,7 @@ class PoringoNode: SKSpriteNode {
         switch direction {
         case .left:
             lastDirection = .left
+            
             action = SKAction.sequence([SKAction.move(by: CGVector(dx: Int(-moveDistance!), dy: 0), duration: timeToCompleteMove!),SKAction.wait(forDuration: timeToCompleteMove!), SKAction.run({self.removeAllActions()})])
         case .up:
             lastDirection = .up
@@ -349,8 +351,6 @@ class PoringoNode: SKSpriteNode {
         case .down:
             lastDirection = .down
             action = SKAction.sequence([SKAction.move(by: CGVector(dx: 0, dy: Int(-moveDistance!)), duration: timeToCompleteMove!),SKAction.wait(forDuration: timeToCompleteMove!), SKAction.run({self.removeAllActions()})])
-        default:
-            break
         }
         
         return action

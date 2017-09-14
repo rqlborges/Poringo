@@ -17,7 +17,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func jogarAction(_ sender: UIButton) {
-        guard let gameVC = storyboard?.instantiateViewController(withIdentifier: "GameViewControlller") as? GameViewController else { return }
+        guard let gameVC = storyboard?.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController else { return }
         self.dismiss(animated: false, completion: nil)
         self.show(gameVC, sender: sender)
         gameVC.instantiateLevel(number: CurrentLevel.number)

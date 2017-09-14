@@ -17,10 +17,6 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-//        self.playButton.setBackgroundImage(#imageLiteral(resourceName: "Play Button"), for: .normal)
-//        self.playButton.setBackgroundImage(#imageLiteral(resourceName: "PlayButton_Selected"), for: .selected)
-        
     }
     
     //MARK: - Setup
@@ -42,7 +38,8 @@ class GameViewController: UIViewController {
     
     func instantiateLevel(number: Int) {
         if let view = self.view as! SKView? {
-            if let scene = SKScene(fileNamed: "level_\(number)") {
+            if let scene = SKScene(fileNamed: "level_\(number)") as? GameScene {
+                scene.viewController = self
                 gameScene = scene
                 gameScene.scaleMode = .aspectFill
                 view.presentScene(gameScene)

@@ -44,7 +44,7 @@ class ArrowTileSwitch {
                         switch selectedTileDefinitionDirection {
                         case Direction.left.rawValue:
                             if (directions.tileGroup(atColumn: column, row: row + 1) != nil) {
-                                guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "arrow_up"}) else { return }
+                                guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "Arrow_Up"}) else { return }
                                 tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
                                 didSetArrow = true
                             } else {
@@ -54,7 +54,7 @@ class ArrowTileSwitch {
                             }
                         case Direction.up.rawValue:
                             if (directions.tileGroup(atColumn: column + 1, row: row) != nil) {
-                                guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "arrow_right"}) else { return }
+                                guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "Arrow_Right"}) else { return }
                                 tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
                                 didSetArrow = true
                             } else {
@@ -64,7 +64,7 @@ class ArrowTileSwitch {
                             }
                         case Direction.right.rawValue:
                             if (directions.tileGroup(atColumn: column, row: row - 1) != nil) {
-                                guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "arrow_down"}) else { return }
+                                guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "Arrow_Down"}) else { return }
                                 tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
                                 didSetArrow = true
                             } else {
@@ -74,7 +74,7 @@ class ArrowTileSwitch {
                             }
                         case Direction.down.rawValue:
                             if (directions.tileGroup(atColumn: column - 1, row: row) != nil) {
-                                guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "arrow_left"}) else { return }
+                                guard let arrowTileDefinition = arrowTileGroup.rules.first?.tileDefinitions.first(where: {$0.name == "Arrow_Left"}) else { return }
                                 tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
                                 didSetArrow = true
                             } else {

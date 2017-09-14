@@ -44,7 +44,7 @@ class LevelsMenuCollectionViewController: UICollectionViewController, PassSelect
     //MARK: - PassSelectedLevelDelegate
     func configureLevel(number: Int) {
         //TODO: Dismiss LevelsMenuCollectionViewController
-        guard let gameVC = storyboard?.instantiateViewController(withIdentifier: "GameViewControlller") as? GameViewController else { return }
+        guard let gameVC = storyboard?.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController else { return }
         self.show(gameVC, sender: self)
         gameVC.instantiateLevel(number: number)
 

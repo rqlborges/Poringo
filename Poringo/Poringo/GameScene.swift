@@ -11,8 +11,12 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    public var viewController: UIViewController?
+    
     //MARK: Scene TileMapNodes
     public var isPlaying = false
+    
+    var playButton:UIButton!
     
     var poringo:PoringoNode!
     var light:SKLightNode!
@@ -44,6 +48,7 @@ class GameScene: SKScene {
         setupNodes()
         
         
+        
     }
     
     //MARK: - Update
@@ -59,6 +64,10 @@ class GameScene: SKScene {
             }
         }
         if poringo.finished{
+            if CurrentLevel.currentPlayingLevel == CurrentLevel.number && poringo.won {
+                CurrentLevel.set(number: CurrentLevel.number + 1)
+            }
+            endGame()
             
         }
         
@@ -69,29 +78,21 @@ class GameScene: SKScene {
     
     func setupUI(){
         //Play Button
-        let playButton = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 40))
+        playButton = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 40))
         playButton.setBackgroundImage(#imageLiteral(resourceName: "Play Button"), for: .normal)
         playButton.setBackgroundImage(#imageLiteral(resourceName: "PlayButton_Selected"), for: .selected)
         playButton.layer.position = CGPoint(x: 60, y: 36)
         playButton.addTarget(self, action: #selector(go(_:)), for: .touchUpInside)
         self.view?.addSubview(playButton)
         
-        //End Game Menu
-//        let square = UIView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
-//        square.layer.cornerRadius = CGFloat(10)
-//        square.center = CGPoint(x: (self.view?.bounds.width)!/2, y: (self.view?.bounds.height)!/2)
-//        square.backgroundColor = UIColor.red
-//        let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-//        menuButton.center = CGPoint(x: square.bounds.width/2, y: square.bounds.height/2)
-//        menuButton.backgroundColor = UIColor.black
-//        square.addSubview(menuButton)
-//        self.view?.addSubview(square)
     }
     
     
     func setupUserData(){
         if let timeToFinish = self.userData?.value(forKey: "timeToFinish") as? Int{
             self.timeToFinish = timeToFinish
+        }else{
+            self.timeToFinish = 1000
         }
         if let totalFoodNeeded = self.userData?.value(forKey: "totalFoodNeeded") as? Float{
             self.totalFoodNeeded = Double(totalFoodNeeded)
@@ -248,17 +249,49 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode, ruledBy: directionsTileMapNode)
+       
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         //        let location = touches.first?.location(in: self)
-        
+        guard let touch = touches.first else { return }
+        ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode, ruledBy: directionsTileMapNode)
     }
     
+    func endGame(){
+        //End Game Menu
+        let square = UIView(frame: CGRect(x: 0, y: 0, width: 350, height: 250))
+        square.layer.cornerRadius = CGFloat(10)
+        square.center = CGPoint(x: (self.view?.bounds.width)!/2, y: (self.view?.bounds.height)!/2)
+        square.backgroundColor = UIColor.red
+        let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
+        menuButton.center = CGPoint(x: square.bounds.width/2 - 74, y: square.bounds.height/2 + 50)
+        menuButton.backgroundColor = UIColor.black
+        menuButton.addTarget(self, action: #selector(toHome(_:)), for: .touchUpInside)
+        square.addSubview(menuButton)
+        self.view?.addSubview(square)
+        
+        let nextButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
+        nextButton.center = CGPoint(x: square.bounds.width/2 + 74, y: square.bounds.height/2 + 50)
+        nextButton.backgroundColor = UIColor.black
+        square.addSubview(nextButton)
+        self.view?.addSubview(square)
+        
+        let poringoView = UIImageView(image: #imageLiteral(resourceName: "Porigo_Idle"))
+        poringoView.center = CGPoint(x: square.bounds.width/2, y: square.bounds.height/2 - 40)
+        poringoView.bounds.size = CGSize(width: 100, height: 100)
+        square.addSubview(poringoView)
+    }
+
     func go(_ sender: Any) {
         pause = false
+        playButton.isHidden = true
+    }
+    
+    func toHome(_ sender: Any){
+        guard let home = viewController?.storyboard?.instantiateViewController(withIdentifier: "HomeScreen") as? HomeViewController else { return }
+        viewController?.show(home, sender: viewController)
+//        viewController?.dismiss(animated: true, completion: nil)
     }
     
 }
