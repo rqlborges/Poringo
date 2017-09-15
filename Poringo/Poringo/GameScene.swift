@@ -11,12 +11,13 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    public var viewController: UIViewController?
+    public var viewController: GameViewController?
     
     //MARK: Scene TileMapNodes
     public var isPlaying = false
     
     var playButton:UIButton!
+    var menu:UIView!
     
     var poringo:PoringoNode!
     var light:SKLightNode!
@@ -40,14 +41,12 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         // -- SETUP
-        setupUI()
         setupCamera()
         setupPanGesture()
         setupUserData()
         instantiateTileMapNodes()
         setupNodes()
-        
-        
+        setupUI()
         
     }
     
@@ -68,7 +67,6 @@ class GameScene: SKScene {
                 CurrentLevel.set(number: CurrentLevel.number + 1)
             }
             endGame()
-            
         }
         
         
@@ -84,6 +82,44 @@ class GameScene: SKScene {
         playButton.layer.position = CGPoint(x: 60, y: 36)
         playButton.addTarget(self, action: #selector(go(_:)), for: .touchUpInside)
         self.view?.addSubview(playButton)
+        
+        
+        //Menu
+        menu = UIView(frame: CGRect(x: 0, y: 0, width: 350, height: 250))
+        menu.layer.cornerRadius = CGFloat(10)
+        menu.center = CGPoint(x: (self.view?.bounds.width)!/2, y: (self.view?.bounds.height)!/2)
+        menu.backgroundColor = UIColor.red
+        menu.isHidden = true
+        
+        let levelButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
+        levelButton.center = CGPoint(x: menu.bounds.width/2 - 74, y: menu.bounds.height/2 + 50)
+        levelButton.backgroundColor = UIColor.black
+        levelButton.addTarget(self, action: #selector(toLevel(_:)), for: .touchUpInside)
+        menu.addSubview(levelButton)
+        self.view?.addSubview(menu)
+        
+        let continueButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
+        continueButton.center = CGPoint(x: menu.bounds.width/2 + 74, y: menu.bounds.height/2 + 50)
+        continueButton.backgroundColor = UIColor.black
+        continueButton.addTarget(self, action: #selector(hideMenu(_:)), for: .touchUpInside)
+        menu.addSubview(continueButton)
+        self.view?.addSubview(menu)
+        
+        //Menu Button
+        let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 40))
+        menuButton.backgroundColor = UIColor.red
+        menuButton.addTarget(self, action: #selector(showMenu(_:)), for: .touchUpInside)
+        menuButton.center = CGPoint(x: (self.view?.bounds.width)! - 60, y: 36)
+        self.view?.addSubview(menuButton)
+        
+        
+        //Restart Button
+        let restartButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        restartButton.layer.cornerRadius = 50
+        restartButton.backgroundColor = UIColor.red
+        restartButton.addTarget(self, action: #selector(restart(_:)), for: .touchUpInside)
+        restartButton.center = CGPoint(x: (self.view?.bounds.width)! - 100, y: 36)
+        self.view?.addSubview(restartButton)
         
     }
     
@@ -138,7 +174,7 @@ class GameScene: SKScene {
         self.roadTileMapNode = roadTileMapNode
     }
     
-    func setupNodes(){
+    func setupPoringo(){
         //Setup Poringo
         let position = roadTileMapNode.centerOfTile(atColumn: initColumn, row: initRow)
         let size = CGSize(width: 64, height: 64)
@@ -146,6 +182,10 @@ class GameScene: SKScene {
         poringo.zPosition = 4
         poringo.lightingBitMask = 1
         self.addChild(poringo)
+    }
+    
+    func setupNodes(){
+        setupPoringo()
         
         roadTileMapNode.lightingBitMask = 1
         grassTileMapNode.lightingBitMask = 1
@@ -164,7 +204,6 @@ class GameScene: SKScene {
         self.addChild(color)
         
     }
-    
     
     /**
      Setup a SKCameraNode to be the scene camera.
@@ -249,13 +288,15 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-       
+        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         //        let location = touches.first?.location(in: self)
         guard let touch = touches.first else { return }
-        ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode, ruledBy: directionsTileMapNode)
+        if pause{
+            ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode, ruledBy: directionsTileMapNode)
+        }
     }
     
     func endGame(){
@@ -282,16 +323,48 @@ class GameScene: SKScene {
         poringoView.bounds.size = CGSize(width: 100, height: 100)
         square.addSubview(poringoView)
     }
-
+    
     func go(_ sender: Any) {
         pause = false
         playButton.isHidden = true
     }
     
-    func toHome(_ sender: Any){
-        guard let home = viewController?.storyboard?.instantiateViewController(withIdentifier: "HomeScreen") as? HomeViewController else { return }
-        viewController?.show(home, sender: viewController)
-//        viewController?.dismiss(animated: true, completion: nil)
+    func restart(_ sender: Any) {
+        
+        poringo.removeFromParent()
+        poringo = nil
+        pause = true
+        playButton.isHidden = false
+        
+        setupPoringo()
+        
+        //        if let view = viewController?.view as? SKView {
+        //            let scene = self
+        //            let animation = SKTransition.crossFade(withDuration: 0.5)
+        //            scene.scaleMode = .aspectFill
+        //
+        //            view.presentScene(scene, transition: animation)
+        //        }
     }
     
+    func showMenu(_ sender: Any){
+        menu.isHidden = false
+    }
+    
+    func hideMenu(_ sender: Any){
+        menu.isHidden = true
+    }
+    
+    func toLevel(_ sender: Any){
+        viewController?.dismiss(animated: true, completion: nil)
+        //        guard let levelMenu = viewController?.storyboard?.instantiateViewController(withIdentifier: "LevelsMenu") as? LevelsMenuCollectionViewController else { return }
+        //        viewController?.show(levelMenu, sender: viewController)
+    }
+    
+    func toHome(_ sender: Any){
+        
+        guard let home = viewController?.storyboard?.instantiateViewController(withIdentifier: "HomeScreen") as? HomeViewController else { return }
+        viewController?.show(home, sender: viewController)
+        viewController?.dismiss(animated: true, completion: nil)
+    }
 }

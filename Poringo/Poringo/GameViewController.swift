@@ -53,13 +53,4 @@ class GameViewController: UIViewController {
     
     //MARK: - Actions
     
-    
-    
-    func endGameUI(){
-        let square = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 250))
-        square.layer.cornerRadius = CGFloat(10)
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        square.addSubview(button)
-    }
-    
 }
