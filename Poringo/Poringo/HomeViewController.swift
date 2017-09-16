@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import AVFoundation
 
 class HomeViewController: UIViewController {
 
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        MusicHelper.sharedHelper.playBackgroundMusic()
         // Do any additional setup after loading the view.
     }
     
