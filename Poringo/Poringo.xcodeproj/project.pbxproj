@@ -32,6 +32,8 @@
 		D8790D7E1F64CCF1003D014B /* PoringoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790D7D1F64CCF1003D014B /* PoringoNode.swift */; };
 		D8790D841F64DEE6003D014B /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790D831F64DEE6003D014B /* Direction.swift */; };
 		D8E618861F6DAD930090B00B /* level_2.sks in Resources */ = {isa = PBXBuildFile; fileRef = D8E618851F6DAD930090B00B /* level_2.sks */; };
+		D8E618881F6DB6D60090B00B /* Poringo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D8E618871F6DB6D60090B00B /* Poringo.mp3 */; };
+		D8E6188A1F6DB9360090B00B /* MusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E618891F6DB9360090B00B /* MusicHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		D8790D7D1F64CCF1003D014B /* PoringoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoringoNode.swift; sourceTree = "<group>"; };
 		D8790D831F64DEE6003D014B /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		D8E618851F6DAD930090B00B /* level_2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = level_2.sks; sourceTree = "<group>"; };
+		D8E618871F6DB6D60090B00B /* Poringo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Poringo.mp3; sourceTree = SOURCE_ROOT; };
+		D8E618891F6DB9360090B00B /* MusicHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,7 @@
 		6095E2FA1F645D1200E18CDC /* Poringo */ = {
 			isa = PBXGroup;
 			children = (
+				D8E618871F6DB6D60090B00B /* Poringo.mp3 */,
 				D8790D821F64DECA003D014B /* Entities */,
 				6095E2FB1F645D1300E18CDC /* AppDelegate.swift */,
 				6095E3081F645D1300E18CDC /* Assets.xcassets */,
@@ -150,6 +155,7 @@
 				60DCB2A51F687258000864B2 /* CurrentLevel.swift */,
 				6095E3031F645D1300E18CDC /* GameViewController.swift */,
 				6095E3011F645D1300E18CDC /* GameScene.swift */,
+				D8E618891F6DB9360090B00B /* MusicHelper.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -247,6 +253,7 @@
 				6025EF2C1F64832700EAA51C /* RoadTiles.sks in Resources */,
 				6075D4F61F687B7500C8FAF5 /* level_8.sks in Resources */,
 				6095E3071F645D1300E18CDC /* Main.storyboard in Resources */,
+				D8E618881F6DB6D60090B00B /* Poringo.mp3 in Resources */,
 				60DCB2AD1F6875C8000864B2 /* level_3.sks in Resources */,
 				6075D4F41F687B7500C8FAF5 /* level_6.sks in Resources */,
 				6075D4F71F687B7500C8FAF5 /* level_9.sks in Resources */,
@@ -274,6 +281,7 @@
 				60DCB2A61F687258000864B2 /* CurrentLevel.swift in Sources */,
 				60DCB2A01F686C2E000864B2 /* HomeViewController.swift in Sources */,
 				60DCB2A21F686F6F000864B2 /* LevelsMenuCollectionViewController.swift in Sources */,
+				D8E6188A1F6DB9360090B00B /* MusicHelper.swift in Sources */,
 				6095E2FC1F645D1300E18CDC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
