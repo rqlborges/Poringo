@@ -361,13 +361,21 @@ class GameScene: SKScene {
     }
     
     func showMenu(_ sender: Any){
+        pause = true
         menu.isHidden = false
         menuButton.isHidden = true
+        restartButton.isHidden = true
+        playButton.isHidden = true
     }
     
     func hideMenu(_ sender: Any){
+        pause = false
         menu.isHidden = true
         menuButton.isHidden = false
+        restartButton.isHidden = false
+        if pause {
+            playButton.isHidden = false
+        }
     }
     
     func toNextLevel(_ sender: Any){
