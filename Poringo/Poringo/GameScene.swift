@@ -17,7 +17,11 @@ class GameScene: SKScene {
     public var isPlaying = false
     
     var playButton:UIButton!
+    var menuButton:UIButton!
+    var restartButton:UIButton!
     var menu:UIView!
+    var endGameView:UIView!
+    
     
     var poringo:PoringoNode!
     var light:SKLightNode!
@@ -28,6 +32,7 @@ class GameScene: SKScene {
     var initDirection:Direction!
     var totalFoodNeeded:Double!
     var timeToFinish:Int!
+    var level:Int!
     
     var pause = true
     
@@ -61,14 +66,14 @@ class GameScene: SKScene {
             if poringo.position.y == roadTileMapNode.centerOfTile(atColumn: 0, row: roadTileMapNode.numberOfColumns - 1).y{
                 isPlaying = false
             }
-        }
-        if poringo.finished{
-            if CurrentLevel.currentPlayingLevel == CurrentLevel.number && poringo.won {
-                CurrentLevel.set(number: CurrentLevel.number + 1)
+            
+            if poringo.finished{
+                if CurrentLevel.currentPlayingLevel == CurrentLevel.number && poringo.won {
+                    CurrentLevel.set(number: CurrentLevel.number + 1)
+                }
+                endGame()
             }
-            endGame()
         }
-        
         
     }
     
@@ -106,7 +111,7 @@ class GameScene: SKScene {
         self.view?.addSubview(menu)
         
         //Menu Button
-        let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 40))
+        menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 40))
         menuButton.backgroundColor = UIColor.red
         menuButton.addTarget(self, action: #selector(showMenu(_:)), for: .touchUpInside)
         menuButton.center = CGPoint(x: (self.view?.bounds.width)! - 60, y: 36)
@@ -114,17 +119,20 @@ class GameScene: SKScene {
         
         
         //Restart Button
-        let restartButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        restartButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         restartButton.layer.cornerRadius = 50
         restartButton.backgroundColor = UIColor.red
         restartButton.addTarget(self, action: #selector(restart(_:)), for: .touchUpInside)
-        restartButton.center = CGPoint(x: (self.view?.bounds.width)! - 100, y: 36)
+        restartButton.center = CGPoint(x: (self.view?.bounds.width)! - 130, y: 36)
         self.view?.addSubview(restartButton)
         
     }
     
     
     func setupUserData(){
+        if let level = self.userData?.value(forKey: "level") as? Int{
+            self.level = level
+        }
         if let timeToFinish = self.userData?.value(forKey: "timeToFinish") as? Int{
             self.timeToFinish = timeToFinish
         }else{
@@ -300,28 +308,32 @@ class GameScene: SKScene {
     }
     
     func endGame(){
+        pause = true
         //End Game Menu
-        let square = UIView(frame: CGRect(x: 0, y: 0, width: 350, height: 250))
-        square.layer.cornerRadius = CGFloat(10)
-        square.center = CGPoint(x: (self.view?.bounds.width)!/2, y: (self.view?.bounds.height)!/2)
-        square.backgroundColor = UIColor.red
+        endGameView = UIView(frame: CGRect(x: 0, y: 0, width: 350, height: 250))
+        endGameView.layer.cornerRadius = CGFloat(10)
+        endGameView.center = CGPoint(x: (self.view?.bounds.width)!/2, y: (self.view?.bounds.height)!/2)
+        endGameView.backgroundColor = UIColor.red
+        
         let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
-        menuButton.center = CGPoint(x: square.bounds.width/2 - 74, y: square.bounds.height/2 + 50)
+        menuButton.center = CGPoint(x: endGameView.bounds.width/2 - 74, y: endGameView.bounds.height/2 + 50)
         menuButton.backgroundColor = UIColor.black
-        menuButton.addTarget(self, action: #selector(toHome(_:)), for: .touchUpInside)
-        square.addSubview(menuButton)
-        self.view?.addSubview(square)
+        menuButton.addTarget(self, action: #selector(toLevel(_:)), for: .touchUpInside)
+        endGameView.addSubview(menuButton)
         
         let nextButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
-        nextButton.center = CGPoint(x: square.bounds.width/2 + 74, y: square.bounds.height/2 + 50)
+        nextButton.center = CGPoint(x: endGameView.bounds.width/2 + 74, y: endGameView.bounds.height/2 + 50)
         nextButton.backgroundColor = UIColor.black
-        square.addSubview(nextButton)
-        self.view?.addSubview(square)
+        nextButton.addTarget(self, action: #selector(toNextLevel(_:)), for: .touchUpInside)
+        endGameView.addSubview(nextButton)
+        
         
         let poringoView = UIImageView(image: #imageLiteral(resourceName: "Porigo_Idle"))
-        poringoView.center = CGPoint(x: square.bounds.width/2, y: square.bounds.height/2 - 40)
+        poringoView.center = CGPoint(x: endGameView.bounds.width/2, y: endGameView.bounds.height/2 - 40)
         poringoView.bounds.size = CGSize(width: 100, height: 100)
-        square.addSubview(poringoView)
+        endGameView.addSubview(poringoView)
+        
+        self.view?.addSubview(endGameView)
     }
     
     func go(_ sender: Any) {
@@ -330,6 +342,7 @@ class GameScene: SKScene {
     }
     
     func restart(_ sender: Any) {
+        
         
         poringo.removeFromParent()
         poringo = nil
@@ -349,10 +362,27 @@ class GameScene: SKScene {
     
     func showMenu(_ sender: Any){
         menu.isHidden = false
+        menuButton.isHidden = true
     }
     
     func hideMenu(_ sender: Any){
         menu.isHidden = true
+        menuButton.isHidden = false
+    }
+    
+    func toNextLevel(_ sender: Any){
+        
+        self.endGameView.removeFromSuperview()
+        
+        if let view = self.viewController?.view as? SKView {
+            if let scene = SKScene(fileNamed: "level_\(level+1)") as? GameScene {
+                scene.viewController = viewController
+                scene.scaleMode = .aspectFill
+                view.presentScene(scene)
+            }
+        }else{
+            toLevel(sender)
+        }
     }
     
     func toLevel(_ sender: Any){

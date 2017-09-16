@@ -20,7 +20,7 @@ class PoringoNode: SKSpriteNode {
     private var totalFoodNeeded:Double?
     
     public var finished = false
-    
+    private var go = false
     public var won = false
     //    private var lastColumnPosition:Int = 0
     //    private var lastRowPosition:Int = 0
@@ -71,9 +71,9 @@ class PoringoNode: SKSpriteNode {
             let pos = tileMap.convert(position, from: self.parent!)
             
             let column = tileMap.tileColumnIndex(fromPosition: pos)
-//            print(column)
+            //            print(column)
             let row = tileMap.tileRowIndex(fromPosition: pos)
-//            print(row)
+            //            print(row)
             
             let tile = tileMap.tileDefinition(atColumn: column, row: row)
             
@@ -340,16 +340,39 @@ class PoringoNode: SKSpriteNode {
         switch direction {
         case .left:
             lastDirection = .left
-            
+            if go{
+                self.texture = SKTexture(image: #imageLiteral(resourceName: "Porigo_Walking_Left"))
+            }else{
+                self.texture = SKTexture(image: #imageLiteral(resourceName: "Porigo_Idle"))
+                go = true
+            }
             action = SKAction.sequence([SKAction.move(by: CGVector(dx: Int(-moveDistance!), dy: 0), duration: timeToCompleteMove!),SKAction.wait(forDuration: timeToCompleteMove!), SKAction.run({self.removeAllActions()})])
         case .up:
             lastDirection = .up
+            if go{
+                self.texture = SKTexture(image: #imageLiteral(resourceName: "Porigo_Walking_Up"))
+            }else{
+                self.texture = SKTexture(image: #imageLiteral(resourceName: "Porigo_Idle"))
+                go = true
+            }
             action = SKAction.sequence([SKAction.move(by: CGVector(dx: 0, dy: Int(moveDistance!)), duration: timeToCompleteMove!),SKAction.wait(forDuration: timeToCompleteMove!), SKAction.run({self.removeAllActions()})])
         case .right:
             lastDirection = .right
+            if go{
+                self.texture = SKTexture(image: #imageLiteral(resourceName: "Porigo_Walking_Right"))
+            }else{
+                self.texture = SKTexture(image: #imageLiteral(resourceName: "Porigo_Idle"))
+                go = true
+            }
             action = SKAction.sequence([SKAction.move(by: CGVector(dx: Int(moveDistance!), dy: 0), duration: timeToCompleteMove!),SKAction.wait(forDuration: timeToCompleteMove!), SKAction.run({self.removeAllActions()})])
         case .down:
             lastDirection = .down
+            if go{
+                self.texture = SKTexture(image: #imageLiteral(resourceName: "Porigo_Walking_Down"))
+            }else{
+                self.texture = SKTexture(image: #imageLiteral(resourceName: "Porigo_Idle"))
+                go = true
+            }
             action = SKAction.sequence([SKAction.move(by: CGVector(dx: 0, dy: Int(-moveDistance!)), duration: timeToCompleteMove!),SKAction.wait(forDuration: timeToCompleteMove!), SKAction.run({self.removeAllActions()})])
         }
         
