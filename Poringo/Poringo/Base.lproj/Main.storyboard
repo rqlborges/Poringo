@@ -17,35 +17,55 @@
                         <viewControllerLayoutGuide type="top" id="gVO-2R-Awd"/>
                         <viewControllerLayoutGuide type="bottom" id="QVG-Be-arL"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="u0p-5y-fpu">
+                    <view key="view" contentMode="scaleToFill" id="u0p-5y-fpu" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2JE-Mf-8yi">
-                                <rect key="frame" x="160" y="147" width="100" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <state key="normal" title="Jogar"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2JE-Mf-8yi">
+                                <rect key="frame" x="184" y="245" width="120" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="VIe-sm-QnY"/>
+                                    <constraint firstAttribute="height" constant="60" id="zg8-SR-4vb"/>
+                                </constraints>
+                                <state key="normal" title="Jogar" image="Play_Button"/>
                                 <connections>
                                     <action selector="jogarAction:" destination="TWg-hm-mhv" eventType="touchUpInside" id="L5r-GB-kaT"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmm-Ml-NZz">
-                                <rect key="frame" x="403" y="147" width="103" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <state key="normal" title="Fases"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmm-Ml-NZz">
+                                <rect key="frame" x="354" y="245" width="130" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="0cA-ah-n95"/>
+                                    <constraint firstAttribute="width" constant="130" id="nYz-sk-hfc"/>
+                                </constraints>
+                                <state key="normal" title="Fases" image="Levels_Button"/>
                                 <connections>
                                     <action selector="fasesAction:" destination="TWg-hm-mhv" eventType="touchUpInside" id="3MY-ry-K9u"/>
                                 </connections>
                             </button>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="HomeTitle" translatesAutoresizingMaskIntoConstraints="NO" id="efd-bZ-niQ">
+                                <rect key="frame" x="154" y="62" width="359" height="97"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="359" id="U5A-TI-GmC"/>
+                                    <constraint firstAttribute="height" constant="97" id="U7C-bx-46e"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2JE-Mf-8yi" firstAttribute="bottom" secondItem="qmm-Ml-NZz" secondAttribute="bottom" id="2X6-50-nYF"/>
+                            <constraint firstItem="efd-bZ-niQ" firstAttribute="top" secondItem="gVO-2R-Awd" secondAttribute="bottom" constant="42" id="HsL-fH-020"/>
+                            <constraint firstItem="qmm-Ml-NZz" firstAttribute="leading" secondItem="2JE-Mf-8yi" secondAttribute="trailing" constant="50" id="JCX-Ij-tYe"/>
+                            <constraint firstItem="efd-bZ-niQ" firstAttribute="centerX" secondItem="u0p-5y-fpu" secondAttribute="centerX" id="Q4T-nW-IMG"/>
+                            <constraint firstItem="2JE-Mf-8yi" firstAttribute="centerX" secondItem="u0p-5y-fpu" secondAttribute="centerX" constant="-89.5" id="QRX-sp-enf"/>
+                            <constraint firstItem="QVG-Be-arL" firstAttribute="top" secondItem="qmm-Ml-NZz" secondAttribute="bottom" constant="70" id="i76-Ji-EdY"/>
+                            <constraint firstItem="QVG-Be-arL" firstAttribute="top" secondItem="2JE-Mf-8yi" secondAttribute="bottom" constant="70" id="vco-yu-XDF"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lsv-FZ-uuJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-609" y="-681"/>
+            <point key="canvasLocation" x="-609.44527736131943" y="-682.39999999999998"/>
         </scene>
         <!--Levels Menu Collection View Controller-->
         <scene sceneID="Y5n-zl-fZm">
@@ -55,30 +75,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="16.75" minimumInteritemSpacing="16.75" id="fxO-WX-hK2">
-                            <size key="itemSize" width="150" height="150"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="fxO-WX-hK2">
+                            <size key="itemSize" width="136" height="136"/>
+                            <size key="headerReferenceSize" width="667" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="16.75" minY="16.75" maxX="16.75" maxY="16.75"/>
+                            <inset key="sectionInset" minX="20" minY="20" maxX="20" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LevelCell" id="MF0-I3-9Rv" customClass="LevelCollectionViewCell" customModule="Poringo" customModuleProvider="target">
-                                <rect key="frame" x="17" y="17" width="150" height="150"/>
+                                <rect key="frame" x="20" y="70" width="136" height="136"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="136" height="136"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3S-ph-YD6">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                            <state key="normal" title="Button"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3S-ph-YD6">
+                                            <rect key="frame" x="0.0" y="0.0" width="136" height="136"/>
                                             <connections>
                                                 <action selector="levelButtonAction:" destination="MF0-I3-9Rv" eventType="touchUpInside" id="Ygp-UB-kU5"/>
                                             </connections>
                                         </button>
                                     </subviews>
                                 </view>
-                                <color key="backgroundColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="a3S-ph-YD6" secondAttribute="bottom" id="SEq-E2-tFy"/>
                                     <constraint firstItem="a3S-ph-YD6" firstAttribute="leading" secondItem="MF0-I3-9Rv" secondAttribute="leading" id="Zy8-IY-UTH"/>
@@ -90,6 +108,37 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Header" id="PJ6-Re-CTv" customClass="LevelsMenuHeaderCollectionReusableView" customModule="Poringo" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="667" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DK9-ks-ZPO">
+                                    <rect key="frame" x="20" y="5" width="24" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="bNU-Zm-gte"/>
+                                        <constraint firstAttribute="width" constant="24" id="ucI-fs-snR"/>
+                                    </constraints>
+                                    <state key="normal" image="LevelsMenuBackButton"/>
+                                    <connections>
+                                        <action selector="backButtonAction:" destination="PJ6-Re-CTv" eventType="touchUpInside" id="Mpb-AR-EQv"/>
+                                    </connections>
+                                </button>
+                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="LevelsMenuTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5zG-LH-XrA">
+                                    <rect key="frame" x="265" y="5" width="136" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="419-n9-3pJ"/>
+                                        <constraint firstAttribute="width" constant="136" id="g63-TC-Dvx"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="DK9-ks-ZPO" firstAttribute="top" secondItem="PJ6-Re-CTv" secondAttribute="top" constant="5" id="9ZO-UV-7W9"/>
+                                <constraint firstItem="DK9-ks-ZPO" firstAttribute="leading" secondItem="PJ6-Re-CTv" secondAttribute="leading" constant="20" id="NPE-6D-X79"/>
+                                <constraint firstItem="5zG-LH-XrA" firstAttribute="top" secondItem="PJ6-Re-CTv" secondAttribute="top" constant="5" id="PDS-i9-fyR"/>
+                                <constraint firstItem="5zG-LH-XrA" firstAttribute="centerX" secondItem="PJ6-Re-CTv" secondAttribute="centerX" id="lXs-WW-nLa"/>
+                                <constraint firstAttribute="bottom" secondItem="5zG-LH-XrA" secondAttribute="bottom" constant="5" id="z4a-PC-0jv"/>
+                            </constraints>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="CuF-t2-xIN" id="As5-8f-VDz"/>
                             <outlet property="delegate" destination="CuF-t2-xIN" id="p5B-Yw-sQQ"/>
@@ -118,4 +167,11 @@
             <point key="canvasLocation" x="-609" y="762"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="HomeTitle" width="311" height="85"/>
+        <image name="LevelsMenuBackButton" width="60" height="98"/>
+        <image name="LevelsMenuTitle" width="200" height="65"/>
+        <image name="Levels_Button" width="130" height="60"/>
+        <image name="Play_Button" width="120" height="60"/>
+    </resources>
 </document>

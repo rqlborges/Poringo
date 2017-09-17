@@ -23,10 +23,21 @@ class LevelCollectionViewCell: UICollectionViewCell {
     
     func config(number: Int) {
         self.number = number
-        self.levelButton.setTitle("\(self.number)", for: .normal)
+        self.levelButton.setTitle("", for: .normal)
+        
         if number > CurrentLevel.number {
             self.levelButton.isEnabled = false
         }
+        
+        if (number > 9){
+            self.levelButton.setImage(UIImage(named: "LevelButton_Default_0\(self.number)"), for: .normal)
+            self.levelButton.setImage(UIImage(named: "LevelButton_Disabled_0\(self.number)"), for: .disabled)
+            self.levelButton.isEnabled = false
+        } else {
+            self.levelButton.setImage(UIImage(named: "LevelButton_Default_00\(self.number)"), for: .normal)
+            self.levelButton.setImage(UIImage(named: "LevelButton_Disabled_00\(self.number)"), for: .disabled)
+        }
+        
     }
     
     

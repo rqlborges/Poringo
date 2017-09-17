@@ -7,17 +7,29 @@
 //
 
 import UIKit
+import SpriteKit
+import GameplayKit
 import AVFoundation
 
 class HomeViewController: UIViewController {
 
-    
-    
+    var homeScene:SKScene!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         MusicHelper.sharedHelper.playBackgroundMusic()
-        // Do any additional setup after loading the view.
+        
+        if let view = self.view as! SKView? {
+            let scene = HomeScene(size: self.view.frame.size)
+            homeScene = scene
+            homeScene.scaleMode = .aspectFill
+            view.presentScene(homeScene)
+            
+            view.ignoresSiblingOrder = true
+            view.showsFPS = true
+            view.showsNodeCount = true
+        }
+        
     }
     
     @IBAction func jogarAction(_ sender: UIButton) {

@@ -48,7 +48,7 @@ class ArrowTileSwitch {
                                 tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
                                 didSetArrow = true
                             } else {
-                                print("No Up indicator")
+//                                print("No Up indicator")
                                 selectedTileDefinitionDirection = Direction.up.rawValue
                                 break
                             }
@@ -58,7 +58,7 @@ class ArrowTileSwitch {
                                 tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
                                 didSetArrow = true
                             } else {
-                                print("No Right indicator")
+//                                print("No Right indicator")
                                 selectedTileDefinitionDirection = Direction.right.rawValue
                                 break
                             }
@@ -68,7 +68,7 @@ class ArrowTileSwitch {
                                 tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
                                 didSetArrow = true
                             } else {
-                                print("No Down indicator")
+//                                print("No Down indicator")
                                 selectedTileDefinitionDirection = Direction.down.rawValue
                                 break
                             }
@@ -78,17 +78,17 @@ class ArrowTileSwitch {
                                 tileMapNode.setTileGroup(arrowTileGroup, andTileDefinition: arrowTileDefinition, forColumn: column, row: row)
                                 didSetArrow = true
                             } else {
-                                print("No Left indicator")
+//                                print("No Left indicator")
                                 selectedTileDefinitionDirection = Direction.left.rawValue
                                 break
                             }
                         default:
-                            print("Arrow tile switch failed")
+//                            print("Arrow tile switch failed")
                             return
                         }
                         
                     } while (didSetArrow == false)
-                    print("Did set arrow")
+//                    print("Did set arrow")
                 }
             }
         }
