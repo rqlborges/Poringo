@@ -96,6 +96,7 @@ class PoringoNode: SKSpriteNode {
             }else if let num = tile?.userData?.value(forKey: "num") as? Double{
                 let signal = tile?.userData?.value(forKey: "signal") as! String
                 if !(self.hasActions()){
+                    self.run(SKAction.playSoundFileNamed("poringo_eat", waitForCompletion: false))
                     totalFoodEaten = calculate(with: num, signal: signal)
                     action = getAction(from: getNextDirection(tileMap: tileMap, column: column, row: row)!)
                     self.run(action!)
@@ -346,7 +347,12 @@ class PoringoNode: SKSpriteNode {
                 self.texture = SKTexture(image: #imageLiteral(resourceName: "Porigo_Idle"))
                 go = true
             }
-            action = SKAction.sequence([SKAction.move(by: CGVector(dx: Int(-moveDistance!), dy: 0), duration: timeToCompleteMove!),SKAction.wait(forDuration: timeToCompleteMove!), SKAction.run({self.removeAllActions()})])
+            let move = SKAction.group([SKAction.move(by: CGVector(dx: Int(-moveDistance!), dy: 0), duration: timeToCompleteMove!),
+                                       SKAction.playSoundFileNamed("scratch", waitForCompletion: false)])
+            
+            action = SKAction.sequence([move,
+                                        SKAction.wait(forDuration: timeToCompleteMove!),
+                                        SKAction.run({self.removeAllActions()})])
         case .up:
             lastDirection = .up
             if go{
@@ -355,7 +361,13 @@ class PoringoNode: SKSpriteNode {
                 self.texture = SKTexture(image: #imageLiteral(resourceName: "Porigo_Idle"))
                 go = true
             }
-            action = SKAction.sequence([SKAction.move(by: CGVector(dx: 0, dy: Int(moveDistance!)), duration: timeToCompleteMove!),SKAction.wait(forDuration: timeToCompleteMove!), SKAction.run({self.removeAllActions()})])
+            
+            let move = SKAction.group([SKAction.move(by: CGVector(dx: 0, dy: Int(moveDistance!)), duration: timeToCompleteMove!),
+                                       SKAction.playSoundFileNamed("scratch", waitForCompletion: false)])
+            
+            action = SKAction.sequence([move,
+                                        SKAction.wait(forDuration: timeToCompleteMove!),
+                                        SKAction.run({self.removeAllActions()})])
         case .right:
             lastDirection = .right
             if go{
@@ -364,7 +376,13 @@ class PoringoNode: SKSpriteNode {
                 self.texture = SKTexture(image: #imageLiteral(resourceName: "Porigo_Idle"))
                 go = true
             }
-            action = SKAction.sequence([SKAction.move(by: CGVector(dx: Int(moveDistance!), dy: 0), duration: timeToCompleteMove!),SKAction.wait(forDuration: timeToCompleteMove!), SKAction.run({self.removeAllActions()})])
+            
+            let move = SKAction.group([SKAction.move(by: CGVector(dx: Int(moveDistance!), dy: 0), duration: timeToCompleteMove!),
+                                       SKAction.playSoundFileNamed("scratch", waitForCompletion: false)])
+            
+            action = SKAction.sequence([move,
+                                        SKAction.wait(forDuration: timeToCompleteMove!),
+                                        SKAction.run({self.removeAllActions()})])
         case .down:
             lastDirection = .down
             if go{
@@ -373,7 +391,13 @@ class PoringoNode: SKSpriteNode {
                 self.texture = SKTexture(image: #imageLiteral(resourceName: "Porigo_Idle"))
                 go = true
             }
-            action = SKAction.sequence([SKAction.move(by: CGVector(dx: 0, dy: Int(-moveDistance!)), duration: timeToCompleteMove!),SKAction.wait(forDuration: timeToCompleteMove!), SKAction.run({self.removeAllActions()})])
+            
+            let move = SKAction.group([SKAction.move(by: CGVector(dx: 0, dy: Int(-moveDistance!)), duration: timeToCompleteMove!),
+                                       SKAction.playSoundFileNamed("scratch", waitForCompletion: false)])
+            
+            action = SKAction.sequence([move,
+                                        SKAction.wait(forDuration: timeToCompleteMove!),
+                                        SKAction.run({self.removeAllActions()})])
         }
         
         return action

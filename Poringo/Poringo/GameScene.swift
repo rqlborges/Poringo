@@ -300,12 +300,18 @@ class GameScene: SKScene {
         //        let location = touches.first?.location(in: self)
         guard let touch = touches.first else { return }
         if pause{
+            self.run(SKAction.playSoundFileNamed("click", waitForCompletion: false))
             ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode, ruledBy: directionsTileMapNode)
         }
     }
     
     func endGame(){
         pause = true
+        restartButton.isHidden = true
+        self.menuButton.isHidden = true
+        playButton.isHidden = true
+        
+        
         //End Game Menu
         endGameView = UIView(frame: CGRect(x: 0, y: 0, width: 350, height: 250))
         endGameView.layer.cornerRadius = CGFloat(10)
@@ -335,8 +341,11 @@ class GameScene: SKScene {
             poringoView.bounds.size = CGSize(width: 100, height: 100)
             endGameView.addSubview(poringoView)
             
-            self.view?.addSubview(endGameView)
+            
         }
+        self.view?.addSubview(endGameView)
+        
+        
     }
     
     func go(_ sender: Any) {
