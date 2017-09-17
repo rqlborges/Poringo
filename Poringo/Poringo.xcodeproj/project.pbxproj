@@ -28,11 +28,12 @@
 		60DCB2A61F687258000864B2 /* CurrentLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DCB2A51F687258000864B2 /* CurrentLevel.swift */; };
 		60DCB2AD1F6875C8000864B2 /* level_3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 60DCB2A91F6875C8000864B2 /* level_3.sks */; };
 		60DCB2AE1F6875C8000864B2 /* level_4.sks in Resources */ = {isa = PBXBuildFile; fileRef = 60DCB2AA1F6875C8000864B2 /* level_4.sks */; };
+		D82A6BD81F6DFBAE006D5FC7 /* Poringo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D82A6BD71F6DFBAE006D5FC7 /* Poringo.mp3 */; };
+		D82A6BDA1F6DFBDA006D5FC7 /* tap.wav in Resources */ = {isa = PBXBuildFile; fileRef = D82A6BD91F6DFBDA006D5FC7 /* tap.wav */; };
 		D86E9BA91F69A3D500D39389 /* level_1.sks in Resources */ = {isa = PBXBuildFile; fileRef = D86E9BA81F69A3D500D39389 /* level_1.sks */; };
 		D8790D7E1F64CCF1003D014B /* PoringoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790D7D1F64CCF1003D014B /* PoringoNode.swift */; };
 		D8790D841F64DEE6003D014B /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790D831F64DEE6003D014B /* Direction.swift */; };
 		D8E618861F6DAD930090B00B /* level_2.sks in Resources */ = {isa = PBXBuildFile; fileRef = D8E618851F6DAD930090B00B /* level_2.sks */; };
-		D8E618881F6DB6D60090B00B /* Poringo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D8E618871F6DB6D60090B00B /* Poringo.mp3 */; };
 		D8E6188A1F6DB9360090B00B /* MusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E618891F6DB9360090B00B /* MusicHelper.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,11 +61,12 @@
 		60DCB2A51F687258000864B2 /* CurrentLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentLevel.swift; sourceTree = "<group>"; };
 		60DCB2A91F6875C8000864B2 /* level_3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = level_3.sks; sourceTree = "<group>"; };
 		60DCB2AA1F6875C8000864B2 /* level_4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = level_4.sks; sourceTree = "<group>"; };
+		D82A6BD71F6DFBAE006D5FC7 /* Poringo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Poringo.mp3; sourceTree = "<group>"; };
+		D82A6BD91F6DFBDA006D5FC7 /* tap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tap.wav; sourceTree = "<group>"; };
 		D86E9BA81F69A3D500D39389 /* level_1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = level_1.sks; sourceTree = "<group>"; };
 		D8790D7D1F64CCF1003D014B /* PoringoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoringoNode.swift; sourceTree = "<group>"; };
 		D8790D831F64DEE6003D014B /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		D8E618851F6DAD930090B00B /* level_2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = level_2.sks; sourceTree = "<group>"; };
-		D8E618871F6DB6D60090B00B /* Poringo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Poringo.mp3; sourceTree = SOURCE_ROOT; };
 		D8E618891F6DB9360090B00B /* MusicHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,7 +117,8 @@
 		6095E2FA1F645D1200E18CDC /* Poringo */ = {
 			isa = PBXGroup;
 			children = (
-				D8E618871F6DB6D60090B00B /* Poringo.mp3 */,
+				D82A6BD91F6DFBDA006D5FC7 /* tap.wav */,
+				D82A6BD71F6DFBAE006D5FC7 /* Poringo.mp3 */,
 				D8790D821F64DECA003D014B /* Entities */,
 				6095E2FB1F645D1300E18CDC /* AppDelegate.swift */,
 				6095E3081F645D1300E18CDC /* Assets.xcassets */,
@@ -249,11 +252,12 @@
 				D8E618861F6DAD930090B00B /* level_2.sks in Resources */,
 				D86E9BA91F69A3D500D39389 /* level_1.sks in Resources */,
 				6075D4F51F687B7500C8FAF5 /* level_7.sks in Resources */,
+				D82A6BDA1F6DFBDA006D5FC7 /* tap.wav in Resources */,
 				60DCB2AE1F6875C8000864B2 /* level_4.sks in Resources */,
 				6025EF2C1F64832700EAA51C /* RoadTiles.sks in Resources */,
 				6075D4F61F687B7500C8FAF5 /* level_8.sks in Resources */,
 				6095E3071F645D1300E18CDC /* Main.storyboard in Resources */,
-				D8E618881F6DB6D60090B00B /* Poringo.mp3 in Resources */,
+				D82A6BD81F6DFBAE006D5FC7 /* Poringo.mp3 in Resources */,
 				60DCB2AD1F6875C8000864B2 /* level_3.sks in Resources */,
 				6075D4F41F687B7500C8FAF5 /* level_6.sks in Resources */,
 				6075D4F71F687B7500C8FAF5 /* level_9.sks in Resources */,

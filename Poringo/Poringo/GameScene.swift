@@ -203,10 +203,7 @@ class GameScene: SKScene {
         light.ambientColor = UIColor.white
         light.falloff = -50
         
-        
-        
         self.addChild(light)
-        
         
         color = SKSpriteNode(color: UIColor.white, size: CGSize(width: 0, height: 0))
         self.addChild(color)
@@ -321,46 +318,47 @@ class GameScene: SKScene {
         menuButton.addTarget(self, action: #selector(toLevel(_:)), for: .touchUpInside)
         endGameView.addSubview(menuButton)
         
-        let nextButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
-        nextButton.center = CGPoint(x: endGameView.bounds.width/2 + 74, y: endGameView.bounds.height/2 + 50)
-        nextButton.backgroundColor = UIColor.black
-        nextButton.addTarget(self, action: #selector(toNextLevel(_:)), for: .touchUpInside)
-        endGameView.addSubview(nextButton)
-        
-        
-        let poringoView = UIImageView(image: #imageLiteral(resourceName: "Porigo_Idle"))
-        poringoView.center = CGPoint(x: endGameView.bounds.width/2, y: endGameView.bounds.height/2 - 40)
-        poringoView.bounds.size = CGSize(width: 100, height: 100)
-        endGameView.addSubview(poringoView)
-        
-        self.view?.addSubview(endGameView)
+        if poringo.won{
+            let nextButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
+            nextButton.center = CGPoint(x: endGameView.bounds.width/2 + 74, y: endGameView.bounds.height/2 + 50)
+            nextButton.backgroundColor = UIColor.black
+            nextButton.addTarget(self, action: #selector(toNextLevel(_:)), for: .touchUpInside)
+            endGameView.addSubview(nextButton)
+            
+            let poringoView = UIImageView(image: #imageLiteral(resourceName: "Porigo_Idle"))
+            poringoView.center = CGPoint(x: endGameView.bounds.width/2, y: endGameView.bounds.height/2 - 40)
+            poringoView.bounds.size = CGSize(width: 100, height: 100)
+            endGameView.addSubview(poringoView)
+        }else{
+            let poringoView = UIImageView(image: #imageLiteral(resourceName: "Porigo_Idle"))
+            poringoView.center = CGPoint(x: endGameView.bounds.width/2, y: endGameView.bounds.height/2 - 40)
+            poringoView.bounds.size = CGSize(width: 100, height: 100)
+            endGameView.addSubview(poringoView)
+            
+            self.view?.addSubview(endGameView)
+        }
     }
     
     func go(_ sender: Any) {
+        self.run(SKAction.playSoundFileNamed("tap", waitForCompletion: false))
         pause = false
+        isPlaying = true
         playButton.isHidden = true
     }
     
     func restart(_ sender: Any) {
-        
-        
+        self.run(SKAction.playSoundFileNamed("tap", waitForCompletion: false))
         poringo.removeFromParent()
         poringo = nil
         pause = true
+        isPlaying = false
         playButton.isHidden = false
         
         setupPoringo()
-        
-        //        if let view = viewController?.view as? SKView {
-        //            let scene = self
-        //            let animation = SKTransition.crossFade(withDuration: 0.5)
-        //            scene.scaleMode = .aspectFill
-        //
-        //            view.presentScene(scene, transition: animation)
-        //        }
     }
     
     func showMenu(_ sender: Any){
+        self.run(SKAction.playSoundFileNamed("tap", waitForCompletion: false))
         pause = true
         menu.isHidden = false
         menuButton.isHidden = true
@@ -369,12 +367,14 @@ class GameScene: SKScene {
     }
     
     func hideMenu(_ sender: Any){
+        self.run(SKAction.playSoundFileNamed("tap", waitForCompletion: false))
         pause = false
         menu.isHidden = true
         menuButton.isHidden = false
         restartButton.isHidden = false
-        if pause {
+        if isPlaying {
             playButton.isHidden = false
+            pause = false
         }
     }
     
@@ -394,6 +394,7 @@ class GameScene: SKScene {
     }
     
     func toLevel(_ sender: Any){
+        self.run(SKAction.playSoundFileNamed("tap", waitForCompletion: false))
         viewController?.dismiss(animated: true, completion: nil)
         //        guard let levelMenu = viewController?.storyboard?.instantiateViewController(withIdentifier: "LevelsMenu") as? LevelsMenuCollectionViewController else { return }
         //        viewController?.show(levelMenu, sender: viewController)
