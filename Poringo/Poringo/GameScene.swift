@@ -101,7 +101,6 @@ class GameScene: SKScene {
         
         let levelButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
         levelButton.center = CGPoint(x: menu.bounds.width/2 - 90, y: menu.bounds.height/2)
-        //        levelButton.backgroundColor = UIColor.black
         levelButton.addTarget(self, action: #selector(toLevel(_:)), for: .touchUpInside)
         let levelImage = UIImageView(image: #imageLiteral(resourceName: "LevelsMenu_Button"))
         levelImage.layer.position = CGPoint(x: levelButton.bounds.width/2, y: levelButton.bounds.height/2)
@@ -112,7 +111,6 @@ class GameScene: SKScene {
         
         let continueButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
         continueButton.center = CGPoint(x: menu.bounds.width/2 + 90, y: menu.bounds.height/2)
-        //        continueButton.backgroundColor = UIColor.black
         continueButton.addTarget(self, action: #selector(hideMenu(_:)), for: .touchUpInside)
         let continueImage = UIImageView(image: #imageLiteral(resourceName: "NextLevel_Button"))
         continueImage.layer.position = CGPoint(x: continueButton.bounds.width/2, y: continueButton.bounds.height/2)
@@ -125,7 +123,6 @@ class GameScene: SKScene {
         //Restart Button
         restartButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
         restartButton.center = CGPoint(x: menu.bounds.width/2, y: menu.bounds.height/2)
-        //        continueButton.backgroundColor = UIColor.black
         restartButton.addTarget(self, action: #selector(restart(_:)), for: .touchUpInside)
         let restartImage = UIImageView(image: #imageLiteral(resourceName: "Restart_Button"))
         restartImage.layer.position = CGPoint(x: restartButton.bounds.width/2, y: restartButton.bounds.height/2)
@@ -440,7 +437,6 @@ class GameScene: SKScene {
         
         let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 45, height: 46))
         menuButton.center = CGPoint(x: endGameView.bounds.width/2 - 74, y: endGameView.bounds.height/2 + 50)
-//        menuButton.backgroundColor = UIColor.black
         menuButton.setBackgroundImage(#imageLiteral(resourceName: "LevelsMenu_Button"), for: .normal)
         menuButton.addTarget(self, action: #selector(toLevel(_:)), for: .touchUpInside)
         endGameView.addSubview(menuButton)
@@ -448,7 +444,6 @@ class GameScene: SKScene {
         if poringo.won{
             let nextButton = UIButton(frame: CGRect(x: 0, y: 0, width: 59, height: 44))
             nextButton.center = CGPoint(x: endGameView.bounds.width/2 + 74, y: endGameView.bounds.height/2 + 50)
-//            nextButton.backgroundColor = UIColor.black
             nextButton.setBackgroundImage(#imageLiteral(resourceName: "NextLevel_Button"), for: .normal)
             nextButton.addTarget(self, action: #selector(toNextLevel(_:)), for: .touchUpInside)
             endGameView.addSubview(nextButton)
@@ -456,7 +451,6 @@ class GameScene: SKScene {
         }else{
             let nextButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 34))
             nextButton.center = CGPoint(x: endGameView.bounds.width/2 + 74, y: endGameView.bounds.height/2 + 50)
-            nextButton.backgroundColor = UIColor.black
             nextButton.setBackgroundImage(#imageLiteral(resourceName: "Restart_Button"), for: .normal)
             nextButton.addTarget(self, action: #selector(toNextLevel(_:)), for: .touchUpInside)
             endGameView.addSubview(nextButton)
