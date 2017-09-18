@@ -65,7 +65,7 @@ class PoringoNode: SKSpriteNode {
      
      
      */
-    public func update(tileMap:SKTileMapNode){
+    public func update(tileMap:SKTileMapNode, _ directionalTileMap:SKTileMapNode){
         if !finished {
             
             let pos = tileMap.convert(position, from: self.parent!)
@@ -82,7 +82,7 @@ class PoringoNode: SKSpriteNode {
                 if !(self.hasActions()){
                     self.run(action!)
                 }
-            }else if let _ = tile?.userData?.value(forKey: "finish"){
+            }else if let _ = directionalTileMap.tileDefinition(atColumn: column, row: row)?.userData?.value(forKey: "finish"){
                 if !(self.hasActions()){
                     if totalFoodEaten == totalFoodNeeded {
                         won = true

@@ -17,10 +17,11 @@ class GameScene: SKScene {
     public var isPlaying = false
     
     var playButton:UIButton!
-    var menuButton:UIButton!
+    var rightPanel:UIImageView!
     var restartButton:UIButton!
     var menu:UIView!
     var endGameView:UIView!
+    var placar:UIImageView!
     
     
     var poringo:PoringoNode!
@@ -53,6 +54,7 @@ class GameScene: SKScene {
         setupNodes()
         setupUI()
         
+        //        MusicHelper.sharedHelper.playLevelMusic()
     }
     
     //MARK: - Update
@@ -61,7 +63,8 @@ class GameScene: SKScene {
             if !color.hasActions(){
                 color.run(SKAction.colorize(with: UIColor.blue, colorBlendFactor: 1, duration: TimeInterval(timeToFinish)))
             }
-            poringo.update(tileMap: roadTileMapNode)
+            poringo.update(tileMap: roadTileMapNode, directionsTileMapNode)
+            setupPlacar()
             light.ambientColor = color.color
             if poringo.position.y == roadTileMapNode.centerOfTile(atColumn: 0, row: roadTileMapNode.numberOfColumns - 1).y{
                 isPlaying = false
@@ -81,10 +84,10 @@ class GameScene: SKScene {
     
     func setupUI(){
         //Play Button
-        playButton = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 40))
-        playButton.setBackgroundImage(#imageLiteral(resourceName: "Play Button"), for: .normal)
-        playButton.setBackgroundImage(#imageLiteral(resourceName: "PlayButton_Selected"), for: .selected)
-        playButton.layer.position = CGPoint(x: 60, y: 36)
+        playButton = UIButton(frame: CGRect(x: 0, y: 0, width: 62, height: 64))
+        playButton.setBackgroundImage(#imageLiteral(resourceName: "Go_Button"), for: .normal)
+        //        playButton.setBackgroundImage(#imageLiteral(resourceName: "PlayButton_Selected")s, for: .selected)
+        playButton.frame.origin = CGPoint(x: 188, y: -9)
         playButton.addTarget(self, action: #selector(go(_:)), for: .touchUpInside)
         self.view?.addSubview(playButton)
         
@@ -93,38 +96,141 @@ class GameScene: SKScene {
         menu = UIView(frame: CGRect(x: 0, y: 0, width: 350, height: 250))
         menu.layer.cornerRadius = CGFloat(10)
         menu.center = CGPoint(x: (self.view?.bounds.width)!/2, y: (self.view?.bounds.height)!/2)
-        menu.backgroundColor = UIColor.red
+        menu.backgroundColor = UIColor(red:0.91, green:0.49, blue:0.13, alpha:1.0)
         menu.isHidden = true
         
         let levelButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
-        levelButton.center = CGPoint(x: menu.bounds.width/2 - 74, y: menu.bounds.height/2 + 50)
-        levelButton.backgroundColor = UIColor.black
+        levelButton.center = CGPoint(x: menu.bounds.width/2 - 90, y: menu.bounds.height/2)
+        //        levelButton.backgroundColor = UIColor.black
         levelButton.addTarget(self, action: #selector(toLevel(_:)), for: .touchUpInside)
+        let levelImage = UIImageView(image: #imageLiteral(resourceName: "LevelsMenu_Button"))
+        levelImage.layer.position = CGPoint(x: levelButton.bounds.width/2, y: levelButton.bounds.height/2)
+        levelImage.sizeThatFits(CGSize(width: 64, height: 64))
+        levelButton.addSubview(levelImage)
+        
         menu.addSubview(levelButton)
-        self.view?.addSubview(menu)
         
         let continueButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
-        continueButton.center = CGPoint(x: menu.bounds.width/2 + 74, y: menu.bounds.height/2 + 50)
-        continueButton.backgroundColor = UIColor.black
+        continueButton.center = CGPoint(x: menu.bounds.width/2 + 90, y: menu.bounds.height/2)
+        //        continueButton.backgroundColor = UIColor.black
         continueButton.addTarget(self, action: #selector(hideMenu(_:)), for: .touchUpInside)
-        menu.addSubview(continueButton)
-        self.view?.addSubview(menu)
+        let continueImage = UIImageView(image: #imageLiteral(resourceName: "NextLevel_Button"))
+        continueImage.layer.position = CGPoint(x: continueButton.bounds.width/2, y: continueButton.bounds.height/2)
+        continueImage.sizeThatFits(CGSize(width: 64, height: 64))
+        continueButton.addSubview(continueImage)
         
-        //Menu Button
-        menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 40))
-        menuButton.backgroundColor = UIColor.red
-        menuButton.addTarget(self, action: #selector(showMenu(_:)), for: .touchUpInside)
-        menuButton.center = CGPoint(x: (self.view?.bounds.width)! - 60, y: 36)
-        self.view?.addSubview(menuButton)
+        menu.addSubview(continueButton)
         
         
         //Restart Button
-        restartButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        restartButton.layer.cornerRadius = 50
-        restartButton.backgroundColor = UIColor.red
+        restartButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
+        restartButton.center = CGPoint(x: menu.bounds.width/2, y: menu.bounds.height/2)
+        //        continueButton.backgroundColor = UIColor.black
         restartButton.addTarget(self, action: #selector(restart(_:)), for: .touchUpInside)
-        restartButton.center = CGPoint(x: (self.view?.bounds.width)! - 130, y: 36)
-        self.view?.addSubview(restartButton)
+        let restartImage = UIImageView(image: #imageLiteral(resourceName: "Restart_Button"))
+        restartImage.layer.position = CGPoint(x: restartButton.bounds.width/2, y: restartButton.bounds.height/2)
+        restartImage.sizeThatFits(CGSize(width: 64, height: 64))
+        restartButton.addSubview(restartImage)
+        
+        menu.addSubview(restartButton)
+        
+        self.view?.addSubview(menu)
+        
+        
+        
+        //Menu Button
+        rightPanel = UIImageView(image: #imageLiteral(resourceName: "Right_Panel"))
+        rightPanel.sizeThatFits(CGSize(width: 109, height: 67))
+        rightPanel.frame.origin = CGPoint(x: 563, y: -5)
+        
+        let pauseButton = UIButton(frame: CGRect(x: 0, y: 0, width: 27, height: 31))
+        pauseButton.setBackgroundImage(#imageLiteral(resourceName: "Pause_Button"), for: .normal)
+        pauseButton.addTarget(self, action: #selector(showMenu(_:)), for: .touchUpInside)
+        pauseButton.frame.origin = CGPoint(x: 65, y: 17)
+        rightPanel.addSubview(pauseButton)
+        
+        let resetButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 34))
+        resetButton.setBackgroundImage(#imageLiteral(resourceName: "Restart_Button"), for: .normal)
+        resetButton.frame.origin = CGPoint(x: 15, y: 17)
+        resetButton.addTarget(self, action: #selector(restart(_:)), for: .touchUpInside)
+        rightPanel.addSubview(resetButton)
+
+        
+        self.view?.addSubview(rightPanel)
+        
+        //Placar 109x67
+        
+        //33 × 41
+        
+        placar = UIImageView(image: #imageLiteral(resourceName: "Left_Panel"))
+        placar.frame.size = CGSize(width: 200, height: 67)
+        placar.sizeThatFits(CGSize(width: 200, height: 67))
+        placar.frame.origin = CGPoint(x: -14, y: -12)
+        
+        setupPlacar()
+        
+        self.view?.addSubview(placar)
+        
+    }
+    
+    func setupPlacar(){
+        for num in placar.subviews{
+            num.removeFromSuperview()
+        }
+        
+        let signal = UIImageView(image: #imageLiteral(resourceName: "Green_Food"))
+        signal.frame.origin = CGPoint(x: 30, y: 27)
+        signal.frame.size = CGSize(width: 21, height: 21)
+        
+        var food = poringo.totalFoodEaten
+        if food < 0 {
+            food = abs(food)
+            signal.image = #imageLiteral(resourceName: "Red_Food")
+        }
+        
+        placar.addSubview(signal)
+        
+        
+        var centena: String
+        if food >= 100{
+            centena = String(food).characters.map { String($0) }[2]
+        }else{
+            centena = "0"
+        }
+        let centenaImg = UIImageView(image: UIImage(named: centena))
+        centenaImg.frame.origin = CGPoint(x: 60, y: 15)
+        centenaImg.frame.size = CGSize(width: 33, height: 41)
+        centenaImg.sizeThatFits(centenaImg.frame.size)
+        placar.addSubview(centenaImg)
+        
+        var dezena: String
+        if food >= 100{
+            dezena = String(food).characters.map { String($0) }[1]
+        }else if food >= 10{
+            dezena = String(food).characters.map { String($0) }[0]
+        }else{
+            dezena = "0"
+        }
+        let dezenaImg = UIImageView(image: UIImage(named: String(dezena)))
+        dezenaImg.frame.origin = CGPoint(x: 99, y: 15)
+        dezenaImg.frame.size = CGSize(width: 33, height: 41)
+        dezenaImg.sizeThatFits(dezenaImg.frame.size)
+        placar.addSubview(dezenaImg)
+        
+        
+        var unidade: String
+        if food >= 100{
+            unidade = String(food).characters.map { String($0) }[2]
+        }else if food >= 10{
+            unidade = String(food).characters.map { String($0) }[1]
+        }else{
+            unidade = String(food).characters.map { String($0) }[0]
+        }
+        let unidadeImg = UIImageView(image: UIImage(named: String(unidade)))
+        unidadeImg.frame.origin = CGPoint(x: 138, y: 15)
+        unidadeImg.frame.size = CGSize(width: 33, height: 41)
+        unidadeImg.sizeThatFits(unidadeImg.frame.size)
+        placar.addSubview(unidadeImg)
         
     }
     
@@ -132,6 +238,9 @@ class GameScene: SKScene {
     func setupUserData(){
         if let level = self.userData?.value(forKey: "level") as? Int{
             self.level = level
+        }
+        if let initFood = self.userData?.value(forKey: "initFood") as? Int{
+            self.poringo.totalFoodEaten = Double(initFood)
         }
         if let timeToFinish = self.userData?.value(forKey: "timeToFinish") as? Int{
             self.timeToFinish = timeToFinish
@@ -187,7 +296,7 @@ class GameScene: SKScene {
         let position = roadTileMapNode.centerOfTile(atColumn: initColumn, row: initRow)
         let size = CGSize(width: 64, height: 64)
         poringo = PoringoNode(moveDistance: 64, timeToCompleteMove: 0.25, initialDirection: initDirection, position: position, size: size, totalFoodNeeded: totalFoodNeeded)
-        poringo.zPosition = 4
+        poringo.zPosition = 100
         poringo.lightingBitMask = 1
         self.addChild(poringo)
     }
@@ -299,16 +408,15 @@ class GameScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         //        let location = touches.first?.location(in: self)
         guard let touch = touches.first else { return }
-        if pause{
-            self.run(SKAction.playSoundFileNamed("click", waitForCompletion: false))
-            ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode, ruledBy: directionsTileMapNode)
+        if !isPlaying{
+            ArrowTileSwitch.toNextArrow(for: touch, in: roadTileMapNode, ruledBy: directionsTileMapNode, scene: self)
         }
     }
     
     func endGame(){
         pause = true
         restartButton.isHidden = true
-        self.menuButton.isHidden = true
+        self.rightPanel.isHidden = true
         playButton.isHidden = true
         
         
@@ -316,7 +424,7 @@ class GameScene: SKScene {
         endGameView = UIView(frame: CGRect(x: 0, y: 0, width: 350, height: 250))
         endGameView.layer.cornerRadius = CGFloat(10)
         endGameView.center = CGPoint(x: (self.view?.bounds.width)!/2, y: (self.view?.bounds.height)!/2)
-        endGameView.backgroundColor = UIColor.red
+        endGameView.backgroundColor = UIColor(red:0.91, green:0.49, blue:0.13, alpha:1.0)
         
         let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
         menuButton.center = CGPoint(x: endGameView.bounds.width/2 - 74, y: endGameView.bounds.height/2 + 50)
@@ -362,7 +470,7 @@ class GameScene: SKScene {
         pause = true
         isPlaying = false
         playButton.isHidden = false
-        
+        hideMenu(sender)
         setupPoringo()
     }
     
@@ -370,17 +478,17 @@ class GameScene: SKScene {
         self.run(SKAction.playSoundFileNamed("tap", waitForCompletion: false))
         pause = true
         menu.isHidden = false
-        menuButton.isHidden = true
-        restartButton.isHidden = true
+        rightPanel.isHidden = true
+        //        restartButton.isHidden = true
         playButton.isHidden = true
     }
     
     func hideMenu(_ sender: Any){
         self.run(SKAction.playSoundFileNamed("tap", waitForCompletion: false))
-        pause = false
         menu.isHidden = true
-        menuButton.isHidden = false
-        restartButton.isHidden = false
+        rightPanel.isHidden = false
+        //        restartButton.isHidden = false
+        playButton.isHidden = false
         if isPlaying {
             playButton.isHidden = false
             pause = false

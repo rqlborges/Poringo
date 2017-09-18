@@ -23,7 +23,7 @@ class ArrowTileSwitch {
      - tileMapNode: The tileMapNode that must contain an arrow tile to be modified.
      
      */
-    static func toNextArrow(for touch:UITouch, in tileMapNode:SKTileMapNode, ruledBy directions:SKTileMapNode) {
+    static func toNextArrow(for touch:UITouch, in tileMapNode:SKTileMapNode, ruledBy directions:SKTileMapNode, scene:SKScene) {
         
         let touchPosition = touch.location(in: tileMapNode)
         let row = tileMapNode.tileRowIndex(fromPosition: touchPosition)
@@ -31,6 +31,7 @@ class ArrowTileSwitch {
         let selectedTileGroup = tileMapNode.tileGroup(atColumn: column, row: row)
         
         if (selectedTileGroup?.name == "ArrowsTileGroup") {
+            scene.run(SKAction.playSoundFileNamed("click", waitForCompletion: false))
             if let arrowTileGroup = tileMapNode.tileSet.tileGroups.first(where: {$0.name == "ArrowsTileGroup"}){
                 let selectedTileDefinition = tileMapNode.tileDefinition(atColumn: column, row: row)
                 if var selectedTileDefinitionDirection = selectedTileDefinition?.userData?.value(forKey: "direction") as? Int {
