@@ -17,7 +17,7 @@ class GameScene: SKScene {
     public var isPlaying = false
     
     var playButton:UIButton!
-    var rightPanel:UIImageView!
+    var rightPanel:UIView!
     var restartButton:UIButton!
     var menu:UIView!
     var endGameView:UIView!
@@ -139,9 +139,9 @@ class GameScene: SKScene {
         
         
         //Menu Button
-        rightPanel = UIImageView(image: #imageLiteral(resourceName: "Right_Panel"))
-        rightPanel.sizeThatFits(CGSize(width: 109, height: 67))
-        rightPanel.frame.origin = CGPoint(x: 563, y: -5)
+        rightPanel = UIView(frame: CGRect(x: 563, y: -5, width: 109, height: 67))
+        let rightPanelBg = UIImageView(image: #imageLiteral(resourceName: "Right_Panel"))
+        rightPanel.addSubview(rightPanelBg)
         
         let pauseButton = UIButton(frame: CGRect(x: 0, y: 0, width: 27, height: 31))
         pauseButton.setBackgroundImage(#imageLiteral(resourceName: "Pause_Button"), for: .normal)
@@ -154,7 +154,7 @@ class GameScene: SKScene {
         resetButton.frame.origin = CGPoint(x: 15, y: 17)
         resetButton.addTarget(self, action: #selector(restart(_:)), for: .touchUpInside)
         rightPanel.addSubview(resetButton)
-
+        
         
         self.view?.addSubview(rightPanel)
         
@@ -419,37 +419,48 @@ class GameScene: SKScene {
         self.rightPanel.isHidden = true
         playButton.isHidden = true
         
+        endGameView = UIView(frame: CGRect(x: 0, y: 0, width: 289, height: 187))
+        var endGameBg:UIImageView?
         
         //End Game Menu
-        endGameView = UIView(frame: CGRect(x: 0, y: 0, width: 350, height: 250))
-        endGameView.layer.cornerRadius = CGFloat(10)
-        endGameView.center = CGPoint(x: (self.view?.bounds.width)!/2, y: (self.view?.bounds.height)!/2)
-        endGameView.backgroundColor = UIColor(red:0.91, green:0.49, blue:0.13, alpha:1.0)
+        if poringo.won{
+            endGameView = UIView(frame: CGRect(x: 0, y: 0, width: 289, height: 187))
+            endGameBg = UIImageView(image: #imageLiteral(resourceName: "Success_Message"))
+        }else if poringo.totalFoodEaten > totalFoodNeeded {
+            endGameBg = UIImageView(image: #imageLiteral(resourceName: "Fail_Message_exceed"))
+        }else if poringo.totalFoodEaten < totalFoodNeeded{
+            endGameBg = UIImageView(image: #imageLiteral(resourceName: "Fail_Message_below"))
+        }else{
+            endGameBg = UIImageView(image: #imageLiteral(resourceName: "Fail_Message_time"))
+        }
         
-        let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
+        endGameView.addSubview(endGameBg!)
+        
+        endGameView.center = CGPoint(x: (self.view?.bounds.width)!/2, y: (self.view?.bounds.height)!/2)
+        
+        let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 45, height: 46))
         menuButton.center = CGPoint(x: endGameView.bounds.width/2 - 74, y: endGameView.bounds.height/2 + 50)
-        menuButton.backgroundColor = UIColor.black
+//        menuButton.backgroundColor = UIColor.black
+        menuButton.setBackgroundImage(#imageLiteral(resourceName: "LevelsMenu_Button"), for: .normal)
         menuButton.addTarget(self, action: #selector(toLevel(_:)), for: .touchUpInside)
         endGameView.addSubview(menuButton)
         
         if poringo.won{
-            let nextButton = UIButton(frame: CGRect(x: 0, y: 0, width: 128, height: 40))
+            let nextButton = UIButton(frame: CGRect(x: 0, y: 0, width: 59, height: 44))
             nextButton.center = CGPoint(x: endGameView.bounds.width/2 + 74, y: endGameView.bounds.height/2 + 50)
-            nextButton.backgroundColor = UIColor.black
+//            nextButton.backgroundColor = UIColor.black
+            nextButton.setBackgroundImage(#imageLiteral(resourceName: "NextLevel_Button"), for: .normal)
             nextButton.addTarget(self, action: #selector(toNextLevel(_:)), for: .touchUpInside)
             endGameView.addSubview(nextButton)
             
-            let poringoView = UIImageView(image: #imageLiteral(resourceName: "Porigo_Idle"))
-            poringoView.center = CGPoint(x: endGameView.bounds.width/2, y: endGameView.bounds.height/2 - 40)
-            poringoView.bounds.size = CGSize(width: 100, height: 100)
-            endGameView.addSubview(poringoView)
         }else{
-            let poringoView = UIImageView(image: #imageLiteral(resourceName: "Porigo_Idle"))
-            poringoView.center = CGPoint(x: endGameView.bounds.width/2, y: endGameView.bounds.height/2 - 40)
-            poringoView.bounds.size = CGSize(width: 100, height: 100)
-            endGameView.addSubview(poringoView)
-            
-            
+            let nextButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 34))
+            nextButton.center = CGPoint(x: endGameView.bounds.width/2 + 74, y: endGameView.bounds.height/2 + 50)
+            nextButton.backgroundColor = UIColor.black
+            nextButton.setBackgroundImage(#imageLiteral(resourceName: "Restart_Button"), for: .normal)
+            nextButton.addTarget(self, action: #selector(toNextLevel(_:)), for: .touchUpInside)
+            endGameView.addSubview(nextButton)
+
         }
         self.view?.addSubview(endGameView)
         
