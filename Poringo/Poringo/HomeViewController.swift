@@ -24,10 +24,6 @@ class HomeViewController: UIViewController {
             homeScene = scene
             homeScene.scaleMode = .aspectFill
             view.presentScene(homeScene)
-            
-            view.ignoresSiblingOrder = true
-            view.showsFPS = true
-            view.showsNodeCount = true
         }
         
     }

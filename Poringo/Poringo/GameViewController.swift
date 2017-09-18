@@ -44,10 +44,6 @@ class GameViewController: UIViewController {
                 gameScene.scaleMode = .aspectFill
                 view.presentScene(gameScene)
             }
-            
-            view.ignoresSiblingOrder = true
-            view.showsFPS = true
-            view.showsNodeCount = true
         }
     }
     

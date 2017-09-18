@@ -236,9 +236,6 @@ class GameScene: SKScene {
         if let level = self.userData?.value(forKey: "level") as? Int{
             self.level = level
         }
-        if let initFood = self.userData?.value(forKey: "initFood") as? Int{
-            self.poringo.totalFoodEaten = Double(initFood)
-        }
         if let timeToFinish = self.userData?.value(forKey: "timeToFinish") as? Int{
             self.timeToFinish = timeToFinish
         }else{
@@ -295,6 +292,9 @@ class GameScene: SKScene {
         poringo = PoringoNode(moveDistance: 64, timeToCompleteMove: 0.25, initialDirection: initDirection, position: position, size: size, totalFoodNeeded: totalFoodNeeded)
         poringo.zPosition = 100
         poringo.lightingBitMask = 1
+        if let initFood = self.userData?.value(forKey: "initFood") as? Int{
+            self.poringo.totalFoodEaten = Double(initFood)
+        }
         self.addChild(poringo)
     }
     
@@ -452,7 +452,7 @@ class GameScene: SKScene {
             let nextButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 34))
             nextButton.center = CGPoint(x: endGameView.bounds.width/2 + 74, y: endGameView.bounds.height/2 + 50)
             nextButton.setBackgroundImage(#imageLiteral(resourceName: "Restart_Button"), for: .normal)
-            nextButton.addTarget(self, action: #selector(toNextLevel(_:)), for: .touchUpInside)
+            nextButton.addTarget(self, action: #selector(restart(_:)), for: .touchUpInside)
             endGameView.addSubview(nextButton)
 
         }
