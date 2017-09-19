@@ -476,6 +476,7 @@ class GameScene: SKScene {
         isPlaying = false
         playButton.isHidden = false
         hideMenu(sender)
+        endGameView.isHidden = true
         setupPoringo()
     }
     

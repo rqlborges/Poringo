@@ -26,7 +26,7 @@ class LevelCollectionViewCell: UICollectionViewCell {
         self.levelButton.setTitle("", for: .normal)
         
         if number > CurrentLevel.number {
-            self.levelButton.isEnabled = false
+//            self.levelButton.isEnabled = false
         }
         
         if (number > 9){
