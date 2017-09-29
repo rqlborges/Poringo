@@ -31,6 +31,7 @@ class GameScene: SKScene {
     var initColumn:Int!
     var initRow:Int!
     var initDirection:Direction!
+    var initFood:Int!
     var totalFoodNeeded:Double!
     var timeToFinish:Int!
     var level:Int!
@@ -292,7 +293,8 @@ class GameScene: SKScene {
         poringo = PoringoNode(moveDistance: 64, timeToCompleteMove: 0.25, initialDirection: initDirection, position: position, size: size, totalFoodNeeded: totalFoodNeeded)
         poringo.zPosition = 100
         poringo.lightingBitMask = 1
-        if let initFood = self.userData?.value(forKey: "initFood") as? Int{
+        if let food = self.userData?.value(forKey: "initFood") as? Int{
+            initFood = food
             self.poringo.totalFoodEaten = Double(initFood)
         }
         self.addChild(poringo)
@@ -476,8 +478,11 @@ class GameScene: SKScene {
         isPlaying = false
         playButton.isHidden = false
         hideMenu(sender)
-        endGameView.isHidden = true
+        if let _ = endGameView{
+            endGameView.isHidden = true
+        }
         setupPoringo()
+        setupPlacar()
     }
     
     func showMenu(_ sender: Any){

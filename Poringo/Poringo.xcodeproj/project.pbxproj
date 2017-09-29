@@ -250,7 +250,7 @@
 				TargetAttributes = {
 					6095E2F71F645D1200E18CDC = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = HJ3JBWEJT5;
+						DevelopmentTeam = W84WSQX9M7;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -447,7 +447,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = HJ3JBWEJT5;
+				DEVELOPMENT_TEAM = W84WSQX9M7;
 				INFOPLIST_FILE = Poringo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = poringo.com.mackmobile;
@@ -460,7 +460,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = HJ3JBWEJT5;
+				DEVELOPMENT_TEAM = W84WSQX9M7;
 				INFOPLIST_FILE = Poringo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = poringo.com.mackmobile;
