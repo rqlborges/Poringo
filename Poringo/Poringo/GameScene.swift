@@ -72,7 +72,7 @@ class GameScene: SKScene {
             }
             
             if poringo.finished{
-                if CurrentLevel.currentPlayingLevel == CurrentLevel.number && poringo.won {
+                if CurrentLevel.currentPlayingLevel > CurrentLevel.number && poringo.won {
                     CurrentLevel.set(number: CurrentLevel.number + 1)
                 }
                 endGame()

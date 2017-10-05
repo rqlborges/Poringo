@@ -33,7 +33,6 @@ class LevelsMenuCollectionViewController: UICollectionViewController, UICollecti
     // MARK: UICollectionViewDataSource
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
@@ -68,6 +67,13 @@ class LevelsMenuCollectionViewController: UICollectionViewController, UICollecti
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            self.collectionView?.reloadData()
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -80,7 +86,7 @@ class LevelsMenuCollectionViewController: UICollectionViewController, UICollecti
         //TODO: Dismiss LevelsMenuCollectionViewController
         guard let gameVC = storyboard?.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController else { return }
         self.show(gameVC, sender: self)
-        gameVC.instantiateLevel(number: number)
+        gameVC.instantiateLevel(number: Int32(number))
         
     }
     

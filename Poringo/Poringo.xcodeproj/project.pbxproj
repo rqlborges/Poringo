@@ -37,10 +37,13 @@
 		D81D550E1F6E500B009F9F11 /* scratch.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D81D550D1F6E500B009F9F11 /* scratch.mp3 */; };
 		D82A6BD81F6DFBAE006D5FC7 /* Poringo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D82A6BD71F6DFBAE006D5FC7 /* Poringo.mp3 */; };
 		D82A6BDA1F6DFBDA006D5FC7 /* tap.wav in Resources */ = {isa = PBXBuildFile; fileRef = D82A6BD91F6DFBDA006D5FC7 /* tap.wav */; };
+		D83217CD1F82EB24004C105D /* User.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D83217CB1F82EB24004C105D /* User.xcdatamodeld */; };
 		D85F968E1F6E40EE0011F4CF /* poringo_eat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D85F968C1F6E40EE0011F4CF /* poringo_eat.mp3 */; };
 		D86452841F6F35A50012D655 /* a.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D86452831F6F35A50012D655 /* a.mp3 */; };
 		D8790D7E1F64CCF1003D014B /* PoringoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790D7D1F64CCF1003D014B /* PoringoNode.swift */; };
 		D8790D841F64DEE6003D014B /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790D831F64DEE6003D014B /* Direction.swift */; };
+		D8B7EBAB1F82F00B00313DFA /* Usuario+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B7EBA91F82F00B00313DFA /* Usuario+CoreDataClass.swift */; };
+		D8B7EBAC1F82F00B00313DFA /* Usuario+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B7EBAA1F82F00B00313DFA /* Usuario+CoreDataProperties.swift */; };
 		D8E6188A1F6DB9360090B00B /* MusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E618891F6DB9360090B00B /* MusicHelper.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,10 +80,13 @@
 		D81D550D1F6E500B009F9F11 /* scratch.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = scratch.mp3; sourceTree = "<group>"; };
 		D82A6BD71F6DFBAE006D5FC7 /* Poringo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Poringo.mp3; sourceTree = "<group>"; };
 		D82A6BD91F6DFBDA006D5FC7 /* tap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tap.wav; sourceTree = "<group>"; };
+		D83217CC1F82EB24004C105D /* User.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = User.xcdatamodel; sourceTree = "<group>"; };
 		D85F968C1F6E40EE0011F4CF /* poringo_eat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = poringo_eat.mp3; sourceTree = "<group>"; };
 		D86452831F6F35A50012D655 /* a.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = a.mp3; sourceTree = "<group>"; };
 		D8790D7D1F64CCF1003D014B /* PoringoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoringoNode.swift; sourceTree = "<group>"; };
 		D8790D831F64DEE6003D014B /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		D8B7EBA91F82F00B00313DFA /* Usuario+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Usuario+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D8B7EBAA1F82F00B00313DFA /* Usuario+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Usuario+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D8E618891F6DB9360090B00B /* MusicHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +137,8 @@
 		6095E2FA1F645D1200E18CDC /* Poringo */ = {
 			isa = PBXGroup;
 			children = (
+				D83217D21F82EDDE004C105D /* DAO */,
+				D83217CA1F82EAF1004C105D /* Database */,
 				D85F96901F6E41300011F4CF /* Audio Files */,
 				D8790D821F64DECA003D014B /* Entities */,
 				6095E2FB1F645D1300E18CDC /* AppDelegate.swift */,
@@ -160,6 +168,23 @@
 				603BEB901F6F903E000E5FA6 /* level_10.sks */,
 			);
 			name = Levels;
+			sourceTree = "<group>";
+		};
+		D83217CA1F82EAF1004C105D /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				D83217CB1F82EB24004C105D /* User.xcdatamodeld */,
+			);
+			name = Database;
+			sourceTree = "<group>";
+		};
+		D83217D21F82EDDE004C105D /* DAO */ = {
+			isa = PBXGroup;
+			children = (
+				D8B7EBA91F82F00B00313DFA /* Usuario+CoreDataClass.swift */,
+				D8B7EBAA1F82F00B00313DFA /* Usuario+CoreDataProperties.swift */,
+			);
+			name = DAO;
 			sourceTree = "<group>";
 		};
 		D85F96901F6E41300011F4CF /* Audio Files */ = {
@@ -314,12 +339,15 @@
 				D8790D7E1F64CCF1003D014B /* PoringoNode.swift in Sources */,
 				6095E3021F645D1300E18CDC /* GameScene.swift in Sources */,
 				6095E3041F645D1300E18CDC /* GameViewController.swift in Sources */,
+				D83217CD1F82EB24004C105D /* User.xcdatamodeld in Sources */,
 				60861A471F64FCF300D4C01B /* ArrowTileSwitch.swift in Sources */,
+				D8B7EBAB1F82F00B00313DFA /* Usuario+CoreDataClass.swift in Sources */,
 				D8790D841F64DEE6003D014B /* Direction.swift in Sources */,
 				60DCB2A61F687258000864B2 /* CurrentLevel.swift in Sources */,
 				60DCB2A01F686C2E000864B2 /* HomeViewController.swift in Sources */,
 				60DCB2A21F686F6F000864B2 /* LevelsMenuCollectionViewController.swift in Sources */,
 				60621EBB1F6EE0DD00A3D0C4 /* HomeScene.swift in Sources */,
+				D8B7EBAC1F82F00B00313DFA /* Usuario+CoreDataProperties.swift in Sources */,
 				60621EBD1F6EE12D00A3D0C4 /* LevelsMenuHeaderCollectionReusableView.swift in Sources */,
 				D8E6188A1F6DB9360090B00B /* MusicHelper.swift in Sources */,
 				6095E2FC1F645D1300E18CDC /* AppDelegate.swift in Sources */,
@@ -491,6 +519,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D83217CB1F82EB24004C105D /* User.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D83217CC1F82EB24004C105D /* User.xcdatamodel */,
+			);
+			currentVersion = D83217CC1F82EB24004C105D /* User.xcdatamodel */;
+			path = User.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6095E2F01F645D1200E18CDC /* Project object */;
 }

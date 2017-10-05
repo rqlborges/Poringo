@@ -36,7 +36,7 @@ class GameViewController: UIViewController {
         return true
     }
     
-    func instantiateLevel(number: Int) {
+    func instantiateLevel(number: Int32) {
         if let view = self.view as! SKView? {
             if let scene = SKScene(fileNamed: "level_\(number)") as? GameScene {
                 scene.viewController = self
