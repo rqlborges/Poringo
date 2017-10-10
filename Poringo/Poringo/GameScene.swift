@@ -62,11 +62,14 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         if !pause{
             if !color.hasActions(){
-                color.run(SKAction.colorize(with: UIColor.blue, colorBlendFactor: 1, duration: TimeInterval(timeToFinish)))
+                //                let colorAction = SKAction.colorize(with: UIColor.blue, colorBlendFactor: 1, duration: TimeInterval(timeToFinish))
+                //                let endAction = SKAction.run {self.endGame()}
+                //                color.run(SKAction.sequence([colorAction, endAction]))
+                
             }
             poringo.update(tileMap: roadTileMapNode, directionsTileMapNode)
             setupPlacar()
-            light.ambientColor = color.color
+            //            light.ambientColor = color.color
             if poringo.position.y == roadTileMapNode.centerOfTile(atColumn: 0, row: roadTileMapNode.numberOfColumns - 1).y{
                 isPlaying = false
             }
@@ -195,11 +198,7 @@ class GameScene: SKScene {
         }else{
             centena = "0"
         }
-        let centenaImg = UIImageView(image: UIImage(named: centena))
-        centenaImg.frame.origin = CGPoint(x: 60, y: 15)
-        centenaImg.frame.size = CGSize(width: 33, height: 41)
-        centenaImg.sizeThatFits(centenaImg.frame.size)
-        placar.addSubview(centenaImg)
+        
         
         var dezena: String
         if food >= 100{
@@ -209,11 +208,7 @@ class GameScene: SKScene {
         }else{
             dezena = "0"
         }
-        let dezenaImg = UIImageView(image: UIImage(named: String(dezena)))
-        dezenaImg.frame.origin = CGPoint(x: 99, y: 15)
-        dezenaImg.frame.size = CGSize(width: 33, height: 41)
-        dezenaImg.sizeThatFits(dezenaImg.frame.size)
-        placar.addSubview(dezenaImg)
+        
         
         
         var unidade: String
@@ -224,6 +219,27 @@ class GameScene: SKScene {
         }else{
             unidade = String(food).characters.map { String($0) }[0]
         }
+        
+        
+        if food >= 999{
+            unidade = "9"
+            dezena = "9"
+            centena = "9"
+        }
+        
+        
+        let centenaImg = UIImageView(image: UIImage(named: centena))
+        centenaImg.frame.origin = CGPoint(x: 60, y: 15)
+        centenaImg.frame.size = CGSize(width: 33, height: 41)
+        centenaImg.sizeThatFits(centenaImg.frame.size)
+        placar.addSubview(centenaImg)
+        
+        let dezenaImg = UIImageView(image: UIImage(named: String(dezena)))
+        dezenaImg.frame.origin = CGPoint(x: 99, y: 15)
+        dezenaImg.frame.size = CGSize(width: 33, height: 41)
+        dezenaImg.sizeThatFits(dezenaImg.frame.size)
+        placar.addSubview(dezenaImg)
+        
         let unidadeImg = UIImageView(image: UIImage(named: String(unidade)))
         unidadeImg.frame.origin = CGPoint(x: 138, y: 15)
         unidadeImg.frame.size = CGSize(width: 33, height: 41)
@@ -238,7 +254,7 @@ class GameScene: SKScene {
             self.level = level
         }
         if let timeToFinish = self.userData?.value(forKey: "timeToFinish") as? Int{
-            self.timeToFinish = timeToFinish
+            self.timeToFinish = timeToFinish + 5
         }else{
             self.timeToFinish = 1000
         }
@@ -279,6 +295,11 @@ class GameScene: SKScene {
             as? SKTileMapNode else {
                 fatalError("Road node not loaded")
         }
+        guard let castleTileMapNode = childNode(withName: "Castle")
+            as? SKTileMapNode else {
+                fatalError("Castle node not loaded")
+        }
+        castleTileMapNode.lightingBitMask = 1
         
         self.directionsTileMapNode = directionsTileMapNode
         self.waterTileMapNode = waterTileMapNode
@@ -311,10 +332,10 @@ class GameScene: SKScene {
         light.ambientColor = UIColor.white
         light.falloff = -50
         
-        self.addChild(light)
+        //        self.addChild(light)
         
         color = SKSpriteNode(color: UIColor.white, size: CGSize(width: 0, height: 0))
-        self.addChild(color)
+        //        self.addChild(color)
         
     }
     
@@ -423,14 +444,11 @@ class GameScene: SKScene {
         
         //End Game Menu
         if poringo.won{
-            endGameView = UIView(frame: CGRect(x: 0, y: 0, width: 289, height: 187))
             endGameBg = UIImageView(image: #imageLiteral(resourceName: "Success_Message"))
         }else if poringo.totalFoodEaten > totalFoodNeeded {
             endGameBg = UIImageView(image: #imageLiteral(resourceName: "Fail_Message_exceed"))
         }else if poringo.totalFoodEaten < totalFoodNeeded{
             endGameBg = UIImageView(image: #imageLiteral(resourceName: "Fail_Message_below"))
-        }else{
-            endGameBg = UIImageView(image: #imageLiteral(resourceName: "Fail_Message_time"))
         }
         
         endGameView.addSubview(endGameBg!)
@@ -456,7 +474,7 @@ class GameScene: SKScene {
             nextButton.setBackgroundImage(#imageLiteral(resourceName: "Restart_Button"), for: .normal)
             nextButton.addTarget(self, action: #selector(restart(_:)), for: .touchUpInside)
             endGameView.addSubview(nextButton)
-
+            
         }
         self.view?.addSubview(endGameView)
         
@@ -483,6 +501,7 @@ class GameScene: SKScene {
         }
         setupPoringo()
         setupPlacar()
+//        setupNodes()
     }
     
     func showMenu(_ sender: Any){
